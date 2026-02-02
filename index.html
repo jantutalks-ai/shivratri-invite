@@ -26,11 +26,37 @@
       text-align: center;
       overflow: hidden;
       padding: 20px;
+      position: relative;
+    }
+
+    /* ⭐ Twinkling stars */
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: twinkle ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 0.9; }
     }
 
     .container {
       max-width: 420px;
       width: 100%;
+      position: relative;
+      z-index: 2;
     }
 
     /* Moon */
@@ -111,6 +137,7 @@
       border-radius: 50%;
       animation: fall linear forwards;
       pointer-events: none;
+      z-index: 3;
     }
 
     @keyframes fall {
@@ -134,6 +161,9 @@
 </head>
 <body>
 
+  <!-- Stars -->
+  <div class="stars" id="stars"></div>
+
   <div class="container">
     <div class="moon"></div>
 
@@ -156,6 +186,18 @@
     const yes = document.getElementById("yes");
     const no = document.getElementById("no");
     const afterYes = document.getElementById("afterYes");
+    const starsContainer = document.getElementById("stars");
+
+    // Generate stars
+    const STAR_COUNT = 60;
+    for (let i = 0; i < STAR_COUNT; i++) {
+      const star = document.createElement("div");
+      star.className = "star";
+      star.style.top = Math.random() * 100 + "vh";
+      star.style.left = Math.random() * 100 + "vw";
+      star.style.animationDuration = 2 + Math.random() * 4 + "s";
+      starsContainer.appendChild(star);
+    }
 
     no.addEventListener("click", () => {
       no.style.display = "none";
