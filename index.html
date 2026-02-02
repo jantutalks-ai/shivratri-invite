@@ -1,227 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Maha Shivratri</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maha Shivratri Invitation</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
-<style>
-:root {
-  --bg: #0b132b;
-  --accent: #e6b8a2;
-  --soft: #f4f1ee;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-* { box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #1b2a4e, #0b1224);
+      color: #eef1f7;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      padding: 20px;
+    }
 
-body {
-  margin: 0;
-  height: 100vh;
-  background: radial-gradient(circle at top, #1c2541, var(--bg));
-  font-family: system-ui, sans-serif;
-  color: var(--soft);
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-}
+    .container {
+      max-width: 420px;
+      width: 100%;
+    }
 
-/* Stars */
-.star {
-  position: absolute;
-  background: rgba(255,255,255,0.6);
-  border-radius: 50%;
-  animation: float 12s linear infinite;
-}
+    /* Moon */
+    .moon {
+      width: 160px;
+      height: 160px;
+      margin: 0 auto 28px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #ffffff, #d8dce6);
+      box-shadow:
+        0 0 30px rgba(255,255,255,0.4),
+        0 0 80px rgba(180,200,255,0.25);
+      animation: float 6s ease-in-out infinite;
+    }
 
-@keyframes float {
-  from { transform: translateY(100vh); opacity: 0; }
-  to { transform: translateY(-120vh); opacity: 1; }
-}
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
 
-/* Moon */
-.moon {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--soft) 40%, #d6d6d6 70%);
-  box-shadow: 0 0 40px rgba(230,184,162,0.5);
-  animation: pulse 3s ease-in-out infinite;
-  margin-bottom: 24px;
-}
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      line-height: 1.4;
+      margin-bottom: 24px;
+      padding: 0 10px;
+    }
 
-@keyframes pulse {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.06); }
-}
+    .buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 10px;
+    }
 
-h1 {
-  font-family: 'Playfair Display', serif;
-  text-align: center;
-  font-size: 1.4rem;
-  max-width: 320px;
-  line-height: 1.5;
-}
+    button {
+      border: none;
+      padding: 14px 26px;
+      border-radius: 999px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
 
-/* Buttons */
-.buttons {
-  margin-top: 28px;
-  position: relative;
-  width: 260px;
-  height: 70px;
-}
+    #yes {
+      background: #e6ebff;
+      color: #0b1224;
+      font-weight: 500;
+      box-shadow: 0 0 15px rgba(200,210,255,0.5);
+    }
 
-button {
-  padding: 12px 26px;
-  border-radius: 14px;
-  font-size: 1rem;
-  font-weight: 600;
-  border: none;
-}
+    #yes.grow {
+      transform: scale(1.35);
+      box-shadow: 0 0 35px rgba(220,230,255,0.9);
+    }
 
-.yes {
-  background: var(--accent);
-  color: #1b1b1b;
-}
+    #no {
+      background: transparent;
+      color: #b8bfd9;
+      border: 1px solid rgba(184,191,217,0.4);
+    }
 
-.no {
-  position: absolute;
-  background: transparent;
-  color: var(--accent);
-  border: 1.5px solid var(--accent);
-  transition: transform 0.6s ease;
-}
+    .after-yes {
+      display: none;
+      margin-top: 28px;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
 
-/* Overlay */
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(11,19,43,0.85);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  z-index: 20;
-}
+    /* Marigold petals */
+    .petal {
+      position: fixed;
+      top: -20px;
+      width: 10px;
+      height: 10px;
+      background: radial-gradient(circle, #ffb347, #ff8c00);
+      border-radius: 50%;
+      animation: fall linear forwards;
+      pointer-events: none;
+    }
 
-.card {
-  background: #121b38;
-  padding: 28px 30px;
-  border-radius: 20px;
-  text-align: center;
-  max-width: 320px;
-  box-shadow: 0 0 40px rgba(230,184,162,0.4);
-}
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
 
-.card h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
-  margin-bottom: 16px;
-}
+    @media (max-width: 360px) {
+      h1 {
+        font-size: 1.4rem;
+      }
 
-.card p {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  opacity: 0.9;
-}
-
-/* Petals */
-.petal {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  top: -10px;
-  animation: fall linear infinite;
-}
-
-@keyframes fall {
-  to { transform: translateY(110vh); }
-}
-</style>
+      .moon {
+        width: 140px;
+        height: 140px;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-<script>
-for (let i = 0; i < 30; i++) {
-  const s = document.createElement("div");
-  s.className = "star";
-  s.style.width = s.style.height = Math.random()*2+1+"px";
-  s.style.left = Math.random()*100+"vw";
-  s.style.animationDuration = Math.random()*8+6+"s";
-  document.body.appendChild(s);
-}
-</script>
+  <div class="container">
+    <div class="moon"></div>
 
-<div class="moon"></div>
+    <h1>
+      Will you join me for the night of<br>
+      Maha Shivratri on 15th February?
+    </h1>
 
-<h1 id="text">Loading a sacred request...</h1>
+    <div class="buttons">
+      <button id="yes">Yes</button>
+      <button id="no">No</button>
+    </div>
 
-<div class="buttons" id="buttons" style="display:none">
-  <button class="yes" id="yes">Yes</button>
-  <button class="no" id="no">No</button>
-</div>
-
-<div class="overlay" id="overlay">
-  <div class="card">
-    <h2>It’s a date under the moonlight 🔱</h2>
-    <p>
-      I didn’t want to make this dramatic.<br><br>
-      I just like the idea of spending Maha Shivratri quietly and intentionally —
-      and if that’s with you, I’d genuinely value it.<br><br>
-      No pressure. Whatever feels right to you is already the right answer.
-    </p>
+    <div class="after-yes" id="afterYes">
+      Take screenshot and send to me i have a surprise for you 🧿♥️
+    </div>
   </div>
-</div>
 
-<script>
-const textEl = document.getElementById("text");
-const buttons = document.getElementById("buttons");
+  <script>
+    const yes = document.getElementById("yes");
+    const no = document.getElementById("no");
+    const afterYes = document.getElementById("afterYes");
 
-function type(text, cb) {
-  let i = 0;
-  const t = setInterval(() => {
-    textEl.textContent = text.slice(0, ++i);
-    if (i === text.length) {
-      clearInterval(t);
-      cb && cb();
-    }
-  }, 70);
-}
-
-type("Loading a sacred request...", () => {
-  setTimeout(() => {
-    type("Will you join me for the night of Maha Shivratri on 15th February?", () => {
-      buttons.style.display = "block";
+    no.addEventListener("click", () => {
+      no.style.display = "none";
+      yes.classList.add("grow");
     });
-  }, 700);
-});
 
-/* Gentle resistance */
-const no = document.getElementById("no");
-no.addEventListener("mouseenter", () => {
-  const x = Math.random() * 60 - 30;
-  const y = Math.random() * 40 - 20;
-  no.style.transform = `translate(${x}px, ${y}px)`;
-});
+    yes.addEventListener("click", () => {
+      afterYes.style.display = "block";
+      createPetals();
+    });
 
-/* Yes action */
-document.getElementById("yes").onclick = () => {
-  for (let i = 0; i < 26; i++) {
-    const p = document.createElement("div");
-    p.className = "petal";
-    p.style.left = Math.random()*100+"vw";
-    p.style.animationDuration = Math.random()*3+2+"s";
-    document.body.appendChild(p);
-  }
-  document.getElementById("overlay").style.display = "flex";
-};
-</script>
+    function createPetals() {
+      for (let i = 0; i < 30; i++) {
+        const petal = document.createElement("div");
+        petal.className = "petal";
+        petal.style.left = Math.random() * 100 + "vw";
+        petal.style.animationDuration = 3 + Math.random() * 3 + "s";
+        petal.style.opacity = Math.random();
+        document.body.appendChild(petal);
+
+        setTimeout(() => {
+          petal.remove();
+        }, 6000);
+      }
+    }
+  </script>
 
 </body>
 </html>
