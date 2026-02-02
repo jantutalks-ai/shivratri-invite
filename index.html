@@ -6,45 +6,48 @@
 <title>Maha Shivratri Invitation</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <style>
-  /* Colors and font */
   body {
     margin: 0;
     font-family: 'Helvetica', sans-serif;
     background: radial-gradient(circle, #1a0b2e, #1a0b2e 80%, #1a0b2e 95%);
     color: #ffd700;
     overflow: hidden;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 20px;
   }
 
-  .font-serif {
-    font-family: 'Playfair Display', serif;
-  }
+  .font-serif { font-family: 'Playfair Display', serif; }
 
   h1 {
     text-align: center;
     max-width: 90%;
+    line-height: 1.4;
   }
 
-  /* Mandala spin */
-  .mandala {
-    width: 200px;
-    height: 200px;
-    animation: spin 20s linear infinite;
+  /* Glowing moon */
+  .moon-container {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, #ffd700 0%, #ffb700 60%, #1a0b2e 100%);
+    box-shadow: 0 0 30px #ffd700, 0 0 60px #ffd70080;
+    animation: glow 2.5s ease-in-out infinite alternate;
+    margin-bottom: 20px;
   }
 
-  @keyframes spin {
-    0% { transform: rotate(0deg);}
-    100% { transform: rotate(360deg);}
+  @keyframes glow {
+    0% { box-shadow: 0 0 20px #ffd700, 0 0 40px #ffd70080; transform: scale(1);}
+    100% { box-shadow: 0 0 35px #ffd700, 0 0 70px #ffd70080; transform: scale(1.05);}
   }
 
   /* Buttons */
   .btn {
-    padding: 15px 35px;
-    font-size: 1.2rem;
+    padding: 12px 25px;
+    font-size: 1rem;
     font-weight: bold;
     border-radius: 10px;
     border: none;
@@ -68,12 +71,11 @@
 
   /* Petals */
   .petal {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     position: absolute;
     top: -20px;
-    background-color: orange;
     animation: fall linear infinite;
   }
 
@@ -89,10 +91,10 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background: rgba(26,11,46,0.85);
-    padding: 40px 60px;
+    padding: 30px 40px;
     border-radius: 20px;
     font-family: 'Playfair Display', serif;
-    font-size: 2rem;
+    font-size: 1.5rem;
     text-align: center;
     display: none;
     z-index: 20;
@@ -103,23 +105,23 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 100px;
+    height: 80px;
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    gap: 5px;
+    gap: 3px;
     display: none;
   }
 
   .bar {
-    width: 8px;
+    width: 6px;
     background-color: #ffd700;
     animation: barAnim 0.5s infinite alternate;
   }
 
   @keyframes barAnim {
-    from { height: 10px;}
-    to { height: 60px;}
+    from { height: 8px;}
+    to { height: 40px;}
   }
 
   /* Ambient toggle button */
@@ -130,29 +132,32 @@
     background-color: #1a0b2e;
     color: #ffd700;
     border: none;
-    padding: 12px;
+    padding: 10px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     z-index: 15;
   }
 
+  /* Responsive */
+  @media (max-width: 500px) {
+    h1 { font-size: 1.5rem; }
+    .btn { font-size: 0.9rem; padding: 10px 20px; }
+    .moon-container { width: 120px; height: 120px; margin-bottom: 15px; }
+    .success-card { font-size: 1.2rem; padding: 20px 30px; }
+  }
 </style>
 </head>
 <body>
 
-<!-- Mandala -->
-<svg class="mandala" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="100" cy="100" r="90" stroke="#ffd700" stroke-width="2"/>
-  <circle cx="100" cy="100" r="60" stroke="#ffd700" stroke-width="1"/>
-  <circle cx="100" cy="100" r="30" stroke="#ffd700" stroke-width="1"/>
-</svg>
+<!-- Glowing Moon -->
+<div class="moon-container"></div>
 
 <!-- Typewriter text -->
-<h1 id="typewriter" class="mt-8 font-serif text-3xl md:text-5xl">Loading a sacred request...</h1>
+<h1 id="typewriter" class="mt-4 font-serif">Loading a sacred request...</h1>
 
 <!-- Buttons -->
-<div id="buttons" style="display:none; margin-top: 40px; position: relative; width: 300px; height: 80px;">
+<div id="buttons" style="display:none; margin-top: 30px; position: relative; width: 250px; height: 70px;">
   <button class="btn btn-yes" id="yesBtn">Yes</button>
   <button class="btn btn-no" id="noBtn">No</button>
 </div>
@@ -168,7 +173,6 @@
   <div class="bar" style="animation-delay:0.3s"></div>
   <div class="bar" style="animation-delay:0.4s"></div>
   <div class="bar" style="animation-delay:0.5s"></div>
-  <div class="bar" style="animation-delay:0.6s"></div>
 </div>
 
 <button class="ambient-btn" id="ambientBtn">&#9835;</button>
@@ -179,8 +183,7 @@
   const buttonsDiv = document.getElementById('buttons');
   const text1 = "Loading a sacred request...";
   const text2 = "Will you join me for the night of Maha Shivratri on 15th February?";
-  let i = 0;
-
+  
   function typeWriter(text, callback) {
     let j = 0;
     const interval = setInterval(() => {
@@ -195,13 +198,13 @@
 
   typeWriter(text1, () => setTimeout(() => {
     typeWriter(text2, () => buttonsDiv.style.display = "block");
-  }, 1000));
+  }, 800));
 
   // Teleport "No" button
   const noBtn = document.getElementById('noBtn');
   noBtn.addEventListener('mouseenter', () => {
-    const top = Math.random() * 60 + 20; // 20% to 80%
-    const left = Math.random() * 60 + 20; // 20% to 80%
+    const top = Math.random() * 50 + 20; 
+    const left = Math.random() * 50 + 20; 
     noBtn.style.top = top + "%";
     noBtn.style.left = left + "%";
   });
@@ -210,7 +213,7 @@
   const yesBtn = document.getElementById('yesBtn');
   const successCard = document.getElementById('successCard');
   yesBtn.addEventListener('click', () => {
-    for(let i=0;i<30;i++){
+    for(let i=0;i<25;i++){
       const petal = document.createElement('div');
       petal.classList.add('petal');
       petal.style.left = Math.random()*100 + 'vw';
