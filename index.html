@@ -11,43 +11,42 @@
     font-family: 'Segoe UI', sans-serif;
     background: radial-gradient(circle at top, #f0e7ff, #fff);
     height: 100vh;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
     text-align: center;
-    position: relative;
   }
 
   h1 {
     font-size: 2rem;
     font-weight: 500;
     line-height: 1.4;
-    transition: all 0.5s ease;
+    margin-bottom: 10px;
   }
 
   .sub {
-    margin-top: 10px;
     font-size: 1rem;
     color: #555;
+    margin-bottom: 30px;
   }
 
   #buttons {
-    margin-top: 30px;
-    position: relative;
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 30px;
+    flex-wrap: wrap;
   }
 
   button {
-    padding: 15px 30px;
-    font-size: 1.1rem;
+    padding: 15px 35px;
+    font-size: 1.2rem;
+    border-radius: 12px;
     border: none;
-    border-radius: 10px;
     cursor: pointer;
-    transition: transform 0.2s ease, background 0.3s ease;
+    transition: all 0.3s ease;
+    position: relative;
   }
 
   #yesBtn {
@@ -58,8 +57,6 @@
   #noBtn {
     background: #e0e0e0;
     color: #444;
-    position: absolute;
-    transition: left 0.3s ease, top 0.3s ease;
   }
 
   #reply {
@@ -70,23 +67,24 @@
     position: relative;
   }
 
-  .footer {
+  .gif {
     position: absolute;
-    bottom: 15px;
-    font-size: 13px;
-    color: #777;
-  }
-
-  .emoji {
-    position: absolute;
-    font-size: 24px;
+    width: 60px;
+    height: 60px;
     pointer-events: none;
     animation: floatUp 3s ease forwards;
   }
 
   @keyframes floatUp {
     0% { opacity: 1; transform: translateY(0) scale(1); }
-    100% { opacity: 0; transform: translateY(-150px) scale(1.5); }
+    100% { opacity: 0; transform: translateY(-150px) scale(1.2); }
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 15px;
+    font-size: 13px;
+    color: #777;
   }
 
 </style>
@@ -97,14 +95,17 @@
 <div class="sub">No pressure. Just a genuine question.</div>
 
 <div id="buttons">
-  <button id="yesBtn" onclick="yesClick()">Yes</button>
-  <button id="noBtn" onmouseover="moveNo()">No</button>
+  <button id="yesBtn" onclick="clickYes()">Yes</button>
+  <button id="noBtn" onclick="clickNo()">No</button>
 </div>
 
 <p id="reply"></p>
 <div class="footer">Whatever your answer, I’m glad I asked.</div>
 
 <script>
+let yesSize = 1; // scaling factor for Yes
+let noSize = 1;  // scaling factor for No
+
 const messages = [
   "That actually means more to me than you think 🌙",
   "I’ll remember this night for a long time 🕯️",
@@ -113,65 +114,51 @@ const messages = [
   "I’m really looking forward to it… with you 💫"
 ];
 
-let noMoveCount = 0;
-const maxNoMoves = 2;
+const gifs = [
+  "https://media.giphy.com/media/3o7aCSPqXE5C6T8tBC/giphy.gif", // cute star
+  "https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif", // heart
+  "https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif", // sparkles
+  "https://media.giphy.com/media/xUPGcguWZHRC2HyBRS/giphy.gif" // moon
+];
 
-// Move No button with dodge effect
-function moveNo() {
-  const noBtn = document.getElementById("noBtn");
-  if (noMoveCount < maxNoMoves) {
-    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 20);
-    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 100);
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
-    noMoveCount++;
-  } else {
-    noBtn.style.display = "none";
-    pulseYes();
-  }
+// spawn gif at random x position
+function spawnGif() {
+  const gif = document.createElement("img");
+  gif.src = gifs[Math.floor(Math.random()*gifs.length)];
+  gif.className = "gif";
+  gif.style.left = Math.random() * (window.innerWidth - 60) + "px";
+  gif.style.top = (window.innerHeight - 80) + "px";
+  document.body.appendChild(gif);
+  setTimeout(() => { document.body.removeChild(gif); }, 3000);
 }
 
-// Make Yes button pulse
-function pulseYes() {
+// click Yes: grow Yes, show message & gifs
+function clickYes() {
+  yesSize += 0.2;
   const yesBtn = document.getElementById("yesBtn");
-  let scale = 1;
-  const pulse = setInterval(() => {
-    scale = scale === 1 ? 1.2 : 1;
-    yesBtn.style.transform = `scale(${scale})`;
-  }, 500);
-}
+  yesBtn.style.transform = `scale(${yesSize})`;
 
-// Generate floating emojis
-function spawnEmoji(emoji) {
-  const span = document.createElement("span");
-  span.className = "emoji";
-  span.textContent = emoji;
-  span.style.left = Math.random() * window.innerWidth + "px";
-  span.style.top = window.innerHeight + "px";
-  document.body.appendChild(span);
-  setTimeout(() => { document.body.removeChild(span); }, 3000);
-}
-
-// Yes click effect
-function yesClick() {
   const reply = document.getElementById("reply");
-  const msg = messages[Math.floor(Math.random() * messages.length)];
-  reply.innerHTML = msg;
+  reply.innerHTML = messages[Math.floor(Math.random()*messages.length)];
 
+  // spawn 5 floating gifs
+  for(let i=0; i<5; i++) setTimeout(spawnGif, i*200);
+
+  // update heading with cute emojis
   const heading = document.getElementById("mainHeading");
-  heading.innerHTML = "Will you join me on<br>Maha Shivratri, 15th Feb? 🕉️✨💖";
-
-  // Spawn multiple floating emojis
-  const emojis = ["🌙","✨","💫","🕯️","💖"];
-  for (let i = 0; i < 10; i++) {
-    setTimeout(() => {
-      spawnEmoji(emojis[Math.floor(Math.random() * emojis.length)]);
-    }, i * 200);
-  }
-
-  // Start Yes button pulse
-  pulseYes();
+  heading.innerHTML = "Will you join me on<br>Maha Shivratri, 15th Feb? 🕉️✨💖🌙";
 }
+
+// click No: shrink No, spawn gifs
+function clickNo() {
+  noSize = Math.max(0.5, noSize - 0.15); // prevent too small
+  const noBtn = document.getElementById("noBtn");
+  noBtn.style.transform = `scale(${noSize})`;
+
+  // spawn 3 floating gifs for fun
+  for(let i=0; i<3; i++) setTimeout(spawnGif, i*200);
+}
+
 </script>
 
 </body>
