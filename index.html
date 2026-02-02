@@ -23,7 +23,7 @@ body {
   padding:20px;
 }
 
-/* Subtle breathing */
+/* Gentle breathing */
 body.breathe {
   animation: breathe 8s ease-in-out infinite;
 }
@@ -32,7 +32,7 @@ body.breathe {
   50% { transform: scale(1.01); }
 }
 
-/* Twinkling stars */
+/* Background stars */
 .stars {
   position:fixed;
   inset:0;
@@ -45,12 +45,35 @@ body.breathe {
   height:2px;
   background:white;
   border-radius:50%;
-  opacity:.4;
+  opacity:0.4;
   animation: twinkle 4s ease-in-out infinite;
 }
 @keyframes twinkle {
-  0%,100% { opacity:.2; }
-  50% { opacity:.9; }
+  0%,100% { opacity:0.2; }
+  50% { opacity:0.9; }
+}
+
+/* Falling star (diagonal) */
+.falling-star {
+  position:fixed;
+  top:-10px;
+  width:2px;
+  height:80px;
+  background: linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0));
+  animation: fallStar 3.5s linear forwards;
+  pointer-events:none;
+  z-index:3;
+}
+
+@keyframes fallStar {
+  0% {
+    transform: translateX(0) translateY(-10px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(var(--offsetX)) translateY(120vh);
+    opacity: 0;
+  }
 }
 
 .container {
@@ -71,17 +94,20 @@ body.breathe {
   width:100%;
   height:100%;
   border-radius:50%;
-  background: radial-gradient(circle at 30% 30%, #fff, #d8dce6);
-  box-shadow:0 0 30px rgba(255,255,255,.4),
-             0 0 80px rgba(180,200,255,.25);
+  background: radial-gradient(circle at 30% 30%, #ffffff, #d8dce6);
+  box-shadow:
+    0 0 30px rgba(255,255,255,0.4),
+    0 0 80px rgba(180,200,255,0.25);
+  position:relative;
+  z-index:2;
 }
 
-/* Ripple */
+/* Moon ripple */
 .ripple {
   position:absolute;
   inset:0;
   border-radius:50%;
-  border:1px solid rgba(220,230,255,.4);
+  border:1px solid rgba(220,230,255,0.4);
   animation: ripple 6s ease-out infinite;
 }
 @keyframes ripple {
@@ -92,11 +118,11 @@ body.breathe {
 h1 {
   font-family:'Playfair Display', serif;
   font-size:1.6rem;
-  line-height:1.45;
-  margin-bottom:26px;
+  line-height:1.4;
+  margin-bottom:24px;
+  padding:0 10px;
 }
 
-/* Buttons */
 .buttons {
   display:flex;
   justify-content:center;
@@ -104,7 +130,7 @@ h1 {
 }
 
 button {
-  padding:14px 28px;
+  padding:14px 26px;
   border-radius:999px;
   font-size:1rem;
   border:none;
@@ -117,9 +143,10 @@ button {
   color:#0b1224;
   box-shadow:0 0 15px rgba(200,210,255,.5);
 }
+
 #yes.grow {
   transform:scale(1.35);
-  box-shadow:0 0 40px rgba(220,230,255,.9);
+  box-shadow:0 0 35px rgba(220,230,255,.9);
 }
 
 #no {
@@ -135,32 +162,8 @@ button {
   opacity:.9;
 }
 
-/* Falling stars after YES */
-.falling-star {
-  position:fixed;
-  top:-10px;
-  width:2px;
-  height:18px;
-  background:linear-gradient(to bottom, white, transparent);
-  opacity:.9;
-  animation: fallStar 4s linear forwards;
-  pointer-events:none;
-  z-index:3;
-}
-
-@keyframes fallStar {
-  from {
-    transform: translateX(0) translateY(-10px);
-    opacity:1;
-  }
-  to {
-    transform: translateX(var(--offsetX)) translateY(120vh);
-    opacity:0;
-  }
-}
-
 @media(max-width:360px){
-  h1{font-size:1.45rem;}
+  h1{font-size:1.4rem;}
   .moon-wrapper{width:140px;height:140px;}
 }
 </style>
@@ -178,7 +181,7 @@ button {
   <h1>
     If it feels right to you,<br>
     would you like to join me for Maha Shivratri<br>
-    on 15th February? 🌙🔱
+    on 15th February? 🌙✨
   </h1>
 
   <div class="buttons">
@@ -198,4 +201,55 @@ const no = document.getElementById("no");
 const afterYes = document.getElementById("afterYes");
 const moonWrapper = document.getElementById("moonWrapper");
 
-/
+// Static twinkling stars
+for(let i=0;i<70;i++){
+  const s=document.createElement("div");
+  s.className="star";
+  s.style.top=Math.random()*100+"vh";
+  s.style.left=Math.random()*100+"vw";
+  s.style.animationDuration=3+Math.random()*4+"s";
+  stars.appendChild(s);
+}
+
+// "No" logic
+no.addEventListener("click",()=>{
+  no.style.display="none";
+  yes.classList.add("grow");
+});
+
+// "Yes" logic
+yes.addEventListener("click",()=>{
+  afterYes.style.display="block";
+  document.body.classList.add("breathe");
+  startRipple();
+  startFallingStars();
+});
+
+// Moon ripple
+function startRipple(){
+  setInterval(()=>{
+    const r=document.createElement("div");
+    r.className="ripple";
+    moonWrapper.appendChild(r);
+    setTimeout(()=>r.remove(),6000);
+  },3000);
+}
+
+// Falling stars diagonally
+function startFallingStars(){
+  setInterval(()=>{
+    const fs=document.createElement("div");
+    fs.className="falling-star";
+    const startX = Math.random() * 100;
+    fs.style.left = startX + "vw";
+    // Random X offset for diagonal (-50 to +50 px)
+    const offsetX = -50 + Math.random() * 100;
+    fs.style.setProperty('--offsetX', offsetX + "px");
+    document.body.appendChild(fs);
+    setTimeout(()=> fs.remove(), 4000);
+  }, 2500);
+}
+</script>
+
+</body>
+</html>
