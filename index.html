@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Maha Shivratri Invitation</title>
+<title>Maha Shivratri</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
@@ -23,7 +23,7 @@ body {
   padding:20px;
 }
 
-/* Gentle breathing */
+/* subtle breathing */
 body.breathe {
   animation: breathe 8s ease-in-out infinite;
 }
@@ -32,7 +32,7 @@ body.breathe {
   50% { transform: scale(1.01); }
 }
 
-/* Background stars */
+/* background stars */
 .stars {
   position:fixed;
   inset:0;
@@ -45,7 +45,7 @@ body.breathe {
   height:2px;
   background:white;
   border-radius:50%;
-  opacity:.35;
+  opacity:.4;
   animation: twinkle 4s ease-in-out infinite;
 }
 @keyframes twinkle {
@@ -53,7 +53,7 @@ body.breathe {
   50% { opacity:.9; }
 }
 
-/* Container */
+/* main container */
 .container {
   position:relative;
   z-index:2;
@@ -61,7 +61,7 @@ body.breathe {
   width:100%;
 }
 
-/* Moon */
+/* moon */
 .moon-wrapper {
   position:relative;
   width:160px;
@@ -73,12 +73,11 @@ body.breathe {
   height:100%;
   border-radius:50%;
   background: radial-gradient(circle at 30% 30%, #ffffff, #d8dce6);
-  box-shadow:
-    0 0 30px rgba(255,255,255,.45),
-    0 0 90px rgba(180,200,255,.3);
+  box-shadow:0 0 30px rgba(255,255,255,.45),
+             0 0 90px rgba(180,200,255,.3);
 }
 
-/* Moon ripple */
+/* moon ripple */
 .ripple {
   position:absolute;
   inset:0;
@@ -91,7 +90,6 @@ body.breathe {
   100% { transform: scale(2.3); opacity:0; }
 }
 
-/* Text */
 h1 {
   font-family:'Playfair Display', serif;
   font-size:1.6rem;
@@ -100,7 +98,7 @@ h1 {
   padding:0 10px;
 }
 
-/* Buttons */
+/* buttons */
 .buttons {
   display:flex;
   justify-content:center;
@@ -121,7 +119,6 @@ button {
   color:#0b1224;
   box-shadow:0 0 18px rgba(200,210,255,.6);
 }
-
 #yes.grow {
   transform:scale(1.4);
   box-shadow:0 0 45px rgba(220,230,255,1);
@@ -140,30 +137,30 @@ button {
   opacity:.9;
 }
 
-/* Diagonal falling stars */
-.falling-star {
+/* 🌠 REAL SHOOTING STAR */
+.shooting-star {
   position:fixed;
-  top:-20px;
-  width:2px;
-  height:90px;
+  top:10%;
+  width:3px;
+  height:140px;
   background: linear-gradient(
-    to bottom,
+    135deg,
     rgba(255,255,255,1),
     rgba(255,255,255,0)
   );
-  opacity:.9;
+  opacity:0.9;
   pointer-events:none;
   z-index:3;
-  animation: fallStar linear forwards;
+  animation: shootStar 1.1s ease-out forwards;
 }
 
-@keyframes fallStar {
+@keyframes shootStar {
   from {
-    transform: translate(0, -20px) rotate(var(--angle));
+    transform: translate(0,0);
     opacity:1;
   }
   to {
-    transform: translate(var(--offsetX), 120vh) rotate(var(--angle));
+    transform: translate(320px, 320px);
     opacity:0;
   }
 }
@@ -207,7 +204,7 @@ const no = document.getElementById("no");
 const afterYes = document.getElementById("afterYes");
 const moonWrapper = document.getElementById("moonWrapper");
 
-/* Static stars */
+/* background stars */
 for(let i=0;i<80;i++){
   const s=document.createElement("div");
   s.className="star";
@@ -217,49 +214,38 @@ for(let i=0;i<80;i++){
   stars.appendChild(s);
 }
 
-/* No button */
 no.addEventListener("click",()=>{
   no.style.display="none";
   yes.classList.add("grow");
 });
 
-/* Yes button */
 yes.addEventListener("click",()=>{
   afterYes.style.display="block";
   document.body.classList.add("breathe");
   startRipple();
-  startFallingStars();
+  startShootingStars();
 });
 
-/* Ripple */
+/* moon ripple */
 function startRipple(){
   setInterval(()=>{
     const r=document.createElement("div");
     r.className="ripple";
     moonWrapper.appendChild(r);
     setTimeout(()=>r.remove(),6000);
-  },3200);
+  },3500);
 }
 
-/* Diagonal shooting stars */
-function startFallingStars(){
+/* 🌠 occasional shooting stars */
+function startShootingStars(){
   setInterval(()=>{
-    const fs=document.createElement("div");
-    fs.className="falling-star";
-
-    fs.style.left = Math.random()*100 + "vw";
-
-    const offsetX = -120 + Math.random()*240;
-    const angle = -15 - Math.random()*20; // -15 to -35 deg
-    const duration = 3 + Math.random()*1.5;
-
-    fs.style.setProperty("--offsetX", offsetX + "px");
-    fs.style.setProperty("--angle", angle + "deg");
-    fs.style.animationDuration = duration + "s";
-
-    document.body.appendChild(fs);
-    setTimeout(()=>fs.remove(), duration*1000);
-  }, 2200);
+    const s=document.createElement("div");
+    s.className="shooting-star";
+    s.style.left = Math.random()*40 + "vw";   // start near top-left
+    s.style.top  = Math.random()*30 + "vh";
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),1200);
+  }, 3500); // not too frequent
 }
 </script>
 
