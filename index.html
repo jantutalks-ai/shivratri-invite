@@ -23,7 +23,7 @@ body {
   padding:20px;
 }
 
-/* Breathing */
+/* Breathing after YES */
 body.breathe {
   animation: breathe 8s ease-in-out infinite;
 }
@@ -73,8 +73,18 @@ body.breathe {
   height:100%;
   border-radius:50%;
   background: radial-gradient(circle at 30% 30%, #ffffff, #d8dce6);
-  box-shadow:0 0 30px rgba(255,255,255,.45),
-             0 0 90px rgba(180,200,255,.3);
+  box-shadow:
+    0 0 30px rgba(255,255,255,.45),
+    0 0 90px rgba(180,200,255,.3);
+  transition: all 2.5s ease;
+}
+
+/* Warm moon after YES */
+.moon.warm {
+  background: radial-gradient(circle at 30% 30%, #fff7d6, #f2d38a);
+  box-shadow:
+    0 0 40px rgba(255,214,140,.6),
+    0 0 100px rgba(255,200,120,.35);
 }
 
 /* Ripple */
@@ -82,12 +92,12 @@ body.breathe {
   position:absolute;
   inset:0;
   border-radius:50%;
-  border:1px solid rgba(220,230,255,.4);
+  border:1px solid rgba(255,230,180,.35);
   animation: ripple 6s ease-out infinite;
 }
 @keyframes ripple {
   0% { transform: scale(1); opacity:.6; }
-  100% { transform: scale(2.3); opacity:0; }
+  100% { transform: scale(2.4); opacity:0; }
 }
 
 h1 {
@@ -137,20 +147,18 @@ button {
   opacity:.9;
 }
 
-/* ✅ REAL SHOOTING STAR */
-.falling-star {
+/* ⭐ TRUE SHOOTING STAR */
+.shooting-star {
   position:fixed;
-  top:-40px;
+  top:-60px;
   width:2px;
   height:120px;
-
-  /* Diagonal tail — THIS is the key */
   background: linear-gradient(
-    135deg,
+    to bottom,
     rgba(255,255,255,1),
     rgba(255,255,255,0)
   );
-
+  transform: rotate(-25deg);
   opacity:.9;
   pointer-events:none;
   z-index:3;
@@ -159,11 +167,11 @@ button {
 
 @keyframes shoot {
   from {
-    transform: translate(0, -40px);
+    transform: translate(0, -60px) rotate(-25deg);
     opacity:1;
   }
   to {
-    transform: translate(var(--dx), 120vh);
+    transform: translate(var(--dx), 120vh) rotate(-25deg);
     opacity:0;
   }
 }
@@ -181,7 +189,7 @@ button {
 
 <div class="container">
   <div class="moon-wrapper" id="moonWrapper">
-    <div class="moon"></div>
+    <div class="moon" id="moon"></div>
   </div>
 
   <h1>
@@ -206,6 +214,7 @@ const yes = document.getElementById("yes");
 const no = document.getElementById("no");
 const afterYes = document.getElementById("afterYes");
 const moonWrapper = document.getElementById("moonWrapper");
+const moon = document.getElementById("moon");
 
 /* Static stars */
 for(let i=0;i<80;i++){
@@ -217,18 +226,22 @@ for(let i=0;i<80;i++){
   stars.appendChild(s);
 }
 
+/* NO click */
 no.addEventListener("click",()=>{
   no.style.display="none";
   yes.classList.add("grow");
 });
 
+/* YES click */
 yes.addEventListener("click",()=>{
   afterYes.style.display="block";
   document.body.classList.add("breathe");
+  moon.classList.add("warm");
   startRipple();
   startShootingStars();
 });
 
+/* Ripple */
 function startRipple(){
   setInterval(()=>{
     const r=document.createElement("div");
@@ -238,16 +251,16 @@ function startRipple(){
   },3200);
 }
 
-/* ✅ TRUE DIAGONAL METEORS */
+/* Shooting stars */
 function startShootingStars(){
   setInterval(()=>{
     const s=document.createElement("div");
-    s.className="falling-star";
+    s.className="shooting-star";
     s.style.left = Math.random()*100 + "vw";
-    s.style.setProperty("--dx", (-120 + Math.random()*240) + "px");
+    s.style.setProperty("--dx", (-150 + Math.random()*300) + "px");
     document.body.appendChild(s);
     setTimeout(()=>s.remove(),4000);
-  }, 2200);
+  }, 2000);
 }
 </script>
 
