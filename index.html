@@ -1,166 +1,235 @@
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { FaMusic } from "react-icons/fa";
-import "./index.css"; // Tailwind styles
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maha Shivratri Invitation</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+  /* Colors and font */
+  body {
+    margin: 0;
+    font-family: 'Helvetica', sans-serif;
+    background: radial-gradient(circle, #1a0b2e, #1a0b2e 80%, #1a0b2e 95%);
+    color: #ffd700;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
-const mandalaSVG = (
-  <svg
-    width="200"
-    height="200"
-    viewBox="0 0 200 200"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className="animate-spin-slow"
-  >
-    <circle cx="100" cy="100" r="90" stroke="#ffd700" strokeWidth="2" />
-    <circle cx="100" cy="100" r="60" stroke="#ffd700" strokeWidth="1" />
-    <circle cx="100" cy="100" r="30" stroke="#ffd700" strokeWidth="1" />
-    {/* Add more patterns or paths for Mandala effect */}
-  </svg>
-);
+  .font-serif {
+    font-family: 'Playfair Display', serif;
+  }
 
-const Typewriter = ({ text, speed = 50, onComplete }) => {
-  const [displayedText, setDisplayedText] = useState("");
-  useEffect(() => {
-    let i = 0;
+  h1 {
+    text-align: center;
+    max-width: 90%;
+  }
+
+  /* Mandala spin */
+  .mandala {
+    width: 200px;
+    height: 200px;
+    animation: spin 20s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg);}
+    100% { transform: rotate(360deg);}
+  }
+
+  /* Buttons */
+  .btn {
+    padding: 15px 35px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    margin: 10px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .btn-yes {
+    background-color: #ffd700;
+    color: #1a0b2e;
+  }
+
+  .btn-no {
+    background-color: #1a0b2e;
+    color: #ffd700;
+    border: 2px solid #ffd700;
+    position: absolute;
+  }
+
+  /* Petals */
+  .petal {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    position: absolute;
+    top: -20px;
+    background-color: orange;
+    animation: fall linear infinite;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(0px);}
+    100% { transform: translateY(110vh);}
+  }
+
+  /* Success card */
+  .success-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(26,11,46,0.85);
+    padding: 40px 60px;
+    border-radius: 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    text-align: center;
+    display: none;
+    z-index: 20;
+  }
+
+  /* Ambient visualizer */
+  .ambient {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 5px;
+    display: none;
+  }
+
+  .bar {
+    width: 8px;
+    background-color: #ffd700;
+    animation: barAnim 0.5s infinite alternate;
+  }
+
+  @keyframes barAnim {
+    from { height: 10px;}
+    to { height: 60px;}
+  }
+
+  /* Ambient toggle button */
+  .ambient-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: #1a0b2e;
+    color: #ffd700;
+    border: none;
+    padding: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    z-index: 15;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- Mandala -->
+<svg class="mandala" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="100" cy="100" r="90" stroke="#ffd700" stroke-width="2"/>
+  <circle cx="100" cy="100" r="60" stroke="#ffd700" stroke-width="1"/>
+  <circle cx="100" cy="100" r="30" stroke="#ffd700" stroke-width="1"/>
+</svg>
+
+<!-- Typewriter text -->
+<h1 id="typewriter" class="mt-8 font-serif text-3xl md:text-5xl">Loading a sacred request...</h1>
+
+<!-- Buttons -->
+<div id="buttons" style="display:none; margin-top: 40px; position: relative; width: 300px; height: 80px;">
+  <button class="btn btn-yes" id="yesBtn">Yes</button>
+  <button class="btn btn-no" id="noBtn">No</button>
+</div>
+
+<!-- Success card -->
+<div class="success-card" id="successCard">It’s a date under the moonlight! 🔱</div>
+
+<!-- Ambient visualizer -->
+<div class="ambient" id="ambient">
+  <div class="bar" style="animation-delay:0s"></div>
+  <div class="bar" style="animation-delay:0.1s"></div>
+  <div class="bar" style="animation-delay:0.2s"></div>
+  <div class="bar" style="animation-delay:0.3s"></div>
+  <div class="bar" style="animation-delay:0.4s"></div>
+  <div class="bar" style="animation-delay:0.5s"></div>
+  <div class="bar" style="animation-delay:0.6s"></div>
+</div>
+
+<button class="ambient-btn" id="ambientBtn">&#9835;</button>
+
+<script>
+  // Typewriter effect
+  const typewriterEl = document.getElementById('typewriter');
+  const buttonsDiv = document.getElementById('buttons');
+  const text1 = "Loading a sacred request...";
+  const text2 = "Will you join me for the night of Maha Shivratri on 15th February?";
+  let i = 0;
+
+  function typeWriter(text, callback) {
+    let j = 0;
     const interval = setInterval(() => {
-      setDisplayedText(text.slice(0, i + 1));
-      i++;
-      if (i === text.length) {
+      typewriterEl.innerText = text.slice(0, j+1);
+      j++;
+      if(j === text.length){
         clearInterval(interval);
-        if (onComplete) onComplete();
+        if(callback) callback();
       }
-    }, speed);
-    return () => clearInterval(interval);
-  }, [text, speed, onComplete]);
+    }, 80);
+  }
 
-  return <h1 className="text-3xl md:text-5xl text-center text-sacred font-serif">{displayedText}</h1>;
-};
+  typeWriter(text1, () => setTimeout(() => {
+    typeWriter(text2, () => buttonsDiv.style.display = "block");
+  }, 1000));
 
-export default function App() {
-  const [showQuestion, setShowQuestion] = useState(false);
-  const [noPos, setNoPos] = useState({ top: "50%", left: "60%" });
-  const [showPetals, setShowPetals] = useState(false);
-  const [ambientOn, setAmbientOn] = useState(false);
+  // Teleport "No" button
+  const noBtn = document.getElementById('noBtn');
+  noBtn.addEventListener('mouseenter', () => {
+    const top = Math.random() * 60 + 20; // 20% to 80%
+    const left = Math.random() * 60 + 20; // 20% to 80%
+    noBtn.style.top = top + "%";
+    noBtn.style.left = left + "%";
+  });
 
-  const teleportNo = () => {
-    const top = Math.floor(Math.random() * 80 + 10) + "%";
-    const left = Math.floor(Math.random() * 80 + 10) + "%";
-    setNoPos({ top, left });
-  };
+  // Falling petals
+  const yesBtn = document.getElementById('yesBtn');
+  const successCard = document.getElementById('successCard');
+  yesBtn.addEventListener('click', () => {
+    for(let i=0;i<30;i++){
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+      petal.style.left = Math.random()*100 + 'vw';
+      petal.style.animationDuration = (Math.random()*3 + 2) + 's';
+      petal.style.backgroundColor = Math.random() > 0.5 ? 'orange' : '#ffd700';
+      document.body.appendChild(petal);
+    }
+    successCard.style.display = 'block';
+  });
 
-  const petalsArray = Array.from({ length: 30 });
+  // Ambient toggle
+  const ambientBtn = document.getElementById('ambientBtn');
+  const ambient = document.getElementById('ambient');
+  let ambientOn = false;
+  ambientBtn.addEventListener('click', () => {
+    ambientOn = !ambientOn;
+    ambient.style.display = ambientOn ? 'flex' : 'none';
+  });
+</script>
 
-  return (
-    <div className="relative w-screen h-screen bg-gradient-radial from-[#1a0b2e] via-[#1a0b2e]/80 to-[#1a0b2e]/95 overflow-hidden flex flex-col justify-center items-center">
-      {/* Hero Mandala */}
-      <motion.div
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ type: "spring", stiffness: 50, damping: 10 }}
-      >
-        {mandalaSVG}
-      </motion.div>
-
-      {/* Typewriter Reveal */}
-      {!showQuestion && (
-        <div className="mt-10">
-          <Typewriter
-            text="Loading a sacred request..."
-            speed={80}
-            onComplete={() => setTimeout(() => setShowQuestion(true), 1000)}
-          />
-        </div>
-      )}
-
-      {/* Main Question */}
-      {showQuestion && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="mt-10 flex flex-col items-center space-y-6"
-        >
-          <h1 className="text-3xl md:text-5xl text-center text-sacred font-serif">
-            Will you join me for the night of Maha Shivratri on 15th February?
-          </h1>
-
-          <div className="relative w-full flex justify-center mt-6">
-            <motion.button
-              className="bg-sacred text-midnight font-bold py-3 px-8 rounded-lg shadow-lg hover:scale-110 transition"
-              onClick={() => setShowPetals(true)}
-            >
-              Yes
-            </motion.button>
-
-            <motion.button
-              className="absolute bg-midnight text-sacred border border-sacred py-3 px-8 rounded-lg shadow-lg"
-              style={{ top: noPos.top, left: noPos.left }}
-              onMouseEnter={teleportNo}
-            >
-              No
-            </motion.button>
-          </div>
-        </motion.div>
-      )}
-
-      {/* Falling Petals Animation */}
-      <AnimatePresence>
-        {showPetals && (
-          <>
-            {petalsArray.map((_, i) => (
-              <motion.div
-                key={i}
-                initial={{ y: -50, opacity: 0 }}
-                animate={{ y: "110%", opacity: 1 }}
-                transition={{
-                  duration: Math.random() * 3 + 2,
-                  delay: Math.random() * 2,
-                  repeat: Infinity,
-                }}
-                className="w-4 h-4 rounded-full bg-orange-400 absolute top-0 left-[calc(5%+random(90%))]"
-              />
-            ))}
-
-            <motion.div
-              className="absolute inset-0 flex items-center justify-center bg-midnight/70"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1 }}
-            >
-              <div className="bg-midnight/80 text-sacred p-10 rounded-xl text-center text-2xl md:text-4xl font-serif shadow-lg">
-                It’s a date under the moonlight! 🔱
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-
-      {/* Ambient Toggle */}
-      <button
-        className="absolute bottom-8 right-8 bg-midnight text-sacred p-3 rounded-full shadow-lg"
-        onClick={() => setAmbientOn(!ambientOn)}
-      >
-        <FaMusic />
-      </button>
-
-      {/* Ambient Visualizer */}
-      {ambientOn && (
-        <div className="absolute bottom-0 w-full flex justify-center items-end h-24 space-x-1">
-          {Array.from({ length: 20 }).map((_, i) => (
-            <motion.div
-              key={i}
-              className="w-2 bg-sacred"
-              animate={{ height: ["10px", "60px", "10px"] }}
-              transition={{
-                repeat: Infinity,
-                duration: 0.6 + Math.random(),
-                delay: Math.random(),
-              }}
-            />
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
+</body>
+</html>
