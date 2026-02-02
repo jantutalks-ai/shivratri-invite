@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Maha Shivratri Invitation</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Maha Shivratri</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
 
 <style>
 :root {
   --bg: #0b132b;
   --accent: #e6b8a2;
-  --soft: #f5f3f0;
+  --soft: #f4f1ee;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -25,15 +24,15 @@ body {
   color: var(--soft);
   overflow: hidden;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   padding: 20px;
 }
 
-/* Floating stars */
+/* Stars */
 .star {
   position: absolute;
-  background: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.6);
   border-radius: 50%;
   animation: float 12s linear infinite;
 }
@@ -48,10 +47,8 @@ body {
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--soft) 40%, #d9d9d9 70%);
-  box-shadow:
-    0 0 30px rgba(230,184,162,0.6),
-    0 0 70px rgba(230,184,162,0.4);
+  background: radial-gradient(circle, var(--soft) 40%, #d6d6d6 70%);
+  box-shadow: 0 0 40px rgba(230,184,162,0.5);
   animation: pulse 3s ease-in-out infinite;
   margin-bottom: 24px;
 }
@@ -61,13 +58,12 @@ body {
   50% { transform: scale(1.06); }
 }
 
-/* Text */
 h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 1.4rem;
   text-align: center;
-  line-height: 1.5;
+  font-size: 1.4rem;
   max-width: 320px;
+  line-height: 1.5;
 }
 
 /* Buttons */
@@ -84,7 +80,6 @@ button {
   font-size: 1rem;
   font-weight: 600;
   border: none;
-  cursor: pointer;
 }
 
 .yes {
@@ -97,27 +92,40 @@ button {
   background: transparent;
   color: var(--accent);
   border: 1.5px solid var(--accent);
+  transition: transform 0.6s ease;
 }
 
-/* Success card */
-.card {
+/* Overlay */
+.overlay {
   position: fixed;
   inset: 0;
   background: rgba(11,19,43,0.85);
   display: none;
   align-items: center;
   justify-content: center;
+  padding: 20px;
   z-index: 20;
 }
 
-.card div {
+.card {
   background: #121b38;
-  padding: 32px 36px;
+  padding: 28px 30px;
   border-radius: 20px;
+  text-align: center;
+  max-width: 320px;
+  box-shadow: 0 0 40px rgba(230,184,162,0.4);
+}
+
+.card h2 {
   font-family: 'Playfair Display', serif;
   font-size: 1.5rem;
-  text-align: center;
-  box-shadow: 0 0 40px rgba(230,184,162,0.4);
+  margin-bottom: 16px;
+}
+
+.card p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  opacity: 0.9;
 }
 
 /* Petals */
@@ -134,49 +142,13 @@ button {
 @keyframes fall {
   to { transform: translateY(110vh); }
 }
-
-/* Ambient visualizer */
-.ambient {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 70px;
-  display: none;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 4px;
-}
-
-.bar {
-  width: 6px;
-  background: var(--accent);
-  animation: wave 0.6s ease-in-out infinite alternate;
-}
-
-@keyframes wave {
-  from { height: 10px; }
-  to { height: 42px; }
-}
-
-.toggle {
-  position: fixed;
-  bottom: 18px;
-  right: 18px;
-  background: #121b38;
-  color: var(--accent);
-  border: none;
-  padding: 10px 12px;
-  border-radius: 50%;
-  font-size: 1.2rem;
-}
 </style>
 </head>
 
 <body>
 
-<!-- Stars -->
 <script>
-for (let i = 0; i < 35; i++) {
+for (let i = 0; i < 30; i++) {
   const s = document.createElement("div");
   s.className = "star";
   s.style.width = s.style.height = Math.random()*2+1+"px";
@@ -195,22 +167,21 @@ for (let i = 0; i < 35; i++) {
   <button class="no" id="no">No</button>
 </div>
 
-<div class="card" id="card">
-  <div>It’s a date under the moonlight 🔱</div>
+<div class="overlay" id="overlay">
+  <div class="card">
+    <h2>It’s a date under the moonlight 🔱</h2>
+    <p>
+      I didn’t want to make this dramatic.<br><br>
+      I just like the idea of spending Maha Shivratri quietly and intentionally —
+      and if that’s with you, I’d genuinely value it.<br><br>
+      No pressure. Whatever feels right to you is already the right answer.
+    </p>
+  </div>
 </div>
-
-<div class="ambient" id="ambient">
-  <div class="bar"></div><div class="bar"></div><div class="bar"></div>
-  <div class="bar"></div><div class="bar"></div>
-</div>
-
-<button class="toggle" id="toggle">♪</button>
 
 <script>
 const textEl = document.getElementById("text");
 const buttons = document.getElementById("buttons");
-const text1 = "Loading a sacred request...";
-const text2 = "Will you join me for the night of Maha Shivratri on 15th February?";
 
 function type(text, cb) {
   let i = 0;
@@ -223,33 +194,33 @@ function type(text, cb) {
   }, 70);
 }
 
-type(text1, () => setTimeout(() => {
-  type(text2, () => buttons.style.display = "block");
-}, 700));
+type("Loading a sacred request...", () => {
+  setTimeout(() => {
+    type("Will you join me for the night of Maha Shivratri on 15th February?", () => {
+      buttons.style.display = "block";
+    });
+  }, 700);
+});
 
-// No button teleport
+/* Gentle resistance */
 const no = document.getElementById("no");
-no.onmouseenter = () => {
-  no.style.top = Math.random()*50 + 20 + "%";
-  no.style.left = Math.random()*50 + 20 + "%";
-};
+no.addEventListener("mouseenter", () => {
+  const x = Math.random() * 60 - 30;
+  const y = Math.random() * 40 - 20;
+  no.style.transform = `translate(${x}px, ${y}px)`;
+});
 
-// Yes click
+/* Yes action */
 document.getElementById("yes").onclick = () => {
-  for(let i=0;i<28;i++){
+  for (let i = 0; i < 26; i++) {
     const p = document.createElement("div");
     p.className = "petal";
     p.style.left = Math.random()*100+"vw";
     p.style.animationDuration = Math.random()*3+2+"s";
     document.body.appendChild(p);
   }
-  document.getElementById("card").style.display = "flex";
+  document.getElementById("overlay").style.display = "flex";
 };
-
-// Ambient toggle
-const amb = document.getElementById("ambient");
-document.getElementById("toggle").onclick = () =>
-  amb.style.display = amb.style.display === "flex" ? "none" : "flex";
 </script>
 
 </body>
