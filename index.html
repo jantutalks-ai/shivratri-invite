@@ -4,234 +4,252 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maha Shivratri Invitation</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
 <style>
-  body {
-    margin: 0;
-    font-family: 'Helvetica', sans-serif;
-    background: radial-gradient(circle, #1a0b2e, #1a0b2e 80%, #1a0b2e 95%);
-    color: #ffd700;
-    overflow: hidden;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-  }
+:root {
+  --bg: #0b132b;
+  --accent: #e6b8a2;
+  --soft: #f5f3f0;
+}
 
-  .font-serif { font-family: 'Playfair Display', serif; }
+* {
+  box-sizing: border-box;
+}
 
-  h1 {
-    text-align: center;
-    max-width: 90%;
-    line-height: 1.4;
-  }
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at top, #1c2541, var(--bg));
+  font-family: system-ui, sans-serif;
+  color: var(--soft);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
 
-  /* Glowing moon */
-  .moon-container {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    background: radial-gradient(circle at center, #ffd700 0%, #ffb700 60%, #1a0b2e 100%);
-    box-shadow: 0 0 30px #ffd700, 0 0 60px #ffd70080;
-    animation: glow 2.5s ease-in-out infinite alternate;
-    margin-bottom: 20px;
-  }
+/* Floating stars */
+.star {
+  position: absolute;
+  background: rgba(255,255,255,0.7);
+  border-radius: 50%;
+  animation: float 12s linear infinite;
+}
 
-  @keyframes glow {
-    0% { box-shadow: 0 0 20px #ffd700, 0 0 40px #ffd70080; transform: scale(1);}
-    100% { box-shadow: 0 0 35px #ffd700, 0 0 70px #ffd70080; transform: scale(1.05);}
-  }
+@keyframes float {
+  from { transform: translateY(100vh); opacity: 0; }
+  to { transform: translateY(-120vh); opacity: 1; }
+}
 
-  /* Buttons */
-  .btn {
-    padding: 12px 25px;
-    font-size: 1rem;
-    font-weight: bold;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    margin: 10px;
-    position: relative;
-    z-index: 10;
-  }
+/* Moon */
+.moon {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--soft) 40%, #d9d9d9 70%);
+  box-shadow:
+    0 0 30px rgba(230,184,162,0.6),
+    0 0 70px rgba(230,184,162,0.4);
+  animation: pulse 3s ease-in-out infinite;
+  margin-bottom: 24px;
+}
 
-  .btn-yes {
-    background-color: #ffd700;
-    color: #1a0b2e;
-  }
+@keyframes pulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
 
-  .btn-no {
-    background-color: #1a0b2e;
-    color: #ffd700;
-    border: 2px solid #ffd700;
-    position: absolute;
-  }
+/* Text */
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  text-align: center;
+  line-height: 1.5;
+  max-width: 320px;
+}
 
-  /* Petals */
-  .petal {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    position: absolute;
-    top: -20px;
-    animation: fall linear infinite;
-  }
+/* Buttons */
+.buttons {
+  margin-top: 28px;
+  position: relative;
+  width: 260px;
+  height: 70px;
+}
 
-  @keyframes fall {
-    0% { transform: translateY(0px);}
-    100% { transform: translateY(110vh);}
-  }
+button {
+  padding: 12px 26px;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
 
-  /* Success card */
-  .success-card {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(26,11,46,0.85);
-    padding: 30px 40px;
-    border-radius: 20px;
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    text-align: center;
-    display: none;
-    z-index: 20;
-  }
+.yes {
+  background: var(--accent);
+  color: #1b1b1b;
+}
 
-  /* Ambient visualizer */
-  .ambient {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    gap: 3px;
-    display: none;
-  }
+.no {
+  position: absolute;
+  background: transparent;
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
+}
 
-  .bar {
-    width: 6px;
-    background-color: #ffd700;
-    animation: barAnim 0.5s infinite alternate;
-  }
+/* Success card */
+.card {
+  position: fixed;
+  inset: 0;
+  background: rgba(11,19,43,0.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
 
-  @keyframes barAnim {
-    from { height: 8px;}
-    to { height: 40px;}
-  }
+.card div {
+  background: #121b38;
+  padding: 32px 36px;
+  border-radius: 20px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(230,184,162,0.4);
+}
 
-  /* Ambient toggle button */
-  .ambient-btn {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    background-color: #1a0b2e;
-    color: #ffd700;
-    border: none;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.3rem;
-    z-index: 15;
-  }
+/* Petals */
+.petal {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  top: -10px;
+  animation: fall linear infinite;
+}
 
-  /* Responsive */
-  @media (max-width: 500px) {
-    h1 { font-size: 1.5rem; }
-    .btn { font-size: 0.9rem; padding: 10px 20px; }
-    .moon-container { width: 120px; height: 120px; margin-bottom: 15px; }
-    .success-card { font-size: 1.2rem; padding: 20px 30px; }
-  }
+@keyframes fall {
+  to { transform: translateY(110vh); }
+}
+
+/* Ambient visualizer */
+.ambient {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 70px;
+  display: none;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.bar {
+  width: 6px;
+  background: var(--accent);
+  animation: wave 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes wave {
+  from { height: 10px; }
+  to { height: 42px; }
+}
+
+.toggle {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  background: #121b38;
+  color: var(--accent);
+  border: none;
+  padding: 10px 12px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+}
 </style>
 </head>
+
 <body>
 
-<!-- Glowing Moon -->
-<div class="moon-container"></div>
+<!-- Stars -->
+<script>
+for (let i = 0; i < 35; i++) {
+  const s = document.createElement("div");
+  s.className = "star";
+  s.style.width = s.style.height = Math.random()*2+1+"px";
+  s.style.left = Math.random()*100+"vw";
+  s.style.animationDuration = Math.random()*8+6+"s";
+  document.body.appendChild(s);
+}
+</script>
 
-<!-- Typewriter text -->
-<h1 id="typewriter" class="mt-4 font-serif">Loading a sacred request...</h1>
+<div class="moon"></div>
 
-<!-- Buttons -->
-<div id="buttons" style="display:none; margin-top: 30px; position: relative; width: 250px; height: 70px;">
-  <button class="btn btn-yes" id="yesBtn">Yes</button>
-  <button class="btn btn-no" id="noBtn">No</button>
+<h1 id="text">Loading a sacred request...</h1>
+
+<div class="buttons" id="buttons" style="display:none">
+  <button class="yes" id="yes">Yes</button>
+  <button class="no" id="no">No</button>
 </div>
 
-<!-- Success card -->
-<div class="success-card" id="successCard">It’s a date under the moonlight! 🔱</div>
+<div class="card" id="card">
+  <div>It’s a date under the moonlight 🔱</div>
+</div>
 
-<!-- Ambient visualizer -->
 <div class="ambient" id="ambient">
-  <div class="bar" style="animation-delay:0s"></div>
-  <div class="bar" style="animation-delay:0.1s"></div>
-  <div class="bar" style="animation-delay:0.2s"></div>
-  <div class="bar" style="animation-delay:0.3s"></div>
-  <div class="bar" style="animation-delay:0.4s"></div>
-  <div class="bar" style="animation-delay:0.5s"></div>
+  <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+  <div class="bar"></div><div class="bar"></div>
 </div>
 
-<button class="ambient-btn" id="ambientBtn">&#9835;</button>
+<button class="toggle" id="toggle">♪</button>
 
 <script>
-  // Typewriter effect
-  const typewriterEl = document.getElementById('typewriter');
-  const buttonsDiv = document.getElementById('buttons');
-  const text1 = "Loading a sacred request...";
-  const text2 = "Will you join me for the night of Maha Shivratri on 15th February?";
-  
-  function typeWriter(text, callback) {
-    let j = 0;
-    const interval = setInterval(() => {
-      typewriterEl.innerText = text.slice(0, j+1);
-      j++;
-      if(j === text.length){
-        clearInterval(interval);
-        if(callback) callback();
-      }
-    }, 80);
-  }
+const textEl = document.getElementById("text");
+const buttons = document.getElementById("buttons");
+const text1 = "Loading a sacred request...";
+const text2 = "Will you join me for the night of Maha Shivratri on 15th February?";
 
-  typeWriter(text1, () => setTimeout(() => {
-    typeWriter(text2, () => buttonsDiv.style.display = "block");
-  }, 800));
-
-  // Teleport "No" button
-  const noBtn = document.getElementById('noBtn');
-  noBtn.addEventListener('mouseenter', () => {
-    const top = Math.random() * 50 + 20; 
-    const left = Math.random() * 50 + 20; 
-    noBtn.style.top = top + "%";
-    noBtn.style.left = left + "%";
-  });
-
-  // Falling petals
-  const yesBtn = document.getElementById('yesBtn');
-  const successCard = document.getElementById('successCard');
-  yesBtn.addEventListener('click', () => {
-    for(let i=0;i<25;i++){
-      const petal = document.createElement('div');
-      petal.classList.add('petal');
-      petal.style.left = Math.random()*100 + 'vw';
-      petal.style.animationDuration = (Math.random()*3 + 2) + 's';
-      petal.style.backgroundColor = Math.random() > 0.5 ? 'orange' : '#ffd700';
-      document.body.appendChild(petal);
+function type(text, cb) {
+  let i = 0;
+  const t = setInterval(() => {
+    textEl.textContent = text.slice(0, ++i);
+    if (i === text.length) {
+      clearInterval(t);
+      cb && cb();
     }
-    successCard.style.display = 'block';
-  });
+  }, 70);
+}
 
-  // Ambient toggle
-  const ambientBtn = document.getElementById('ambientBtn');
-  const ambient = document.getElementById('ambient');
-  let ambientOn = false;
-  ambientBtn.addEventListener('click', () => {
-    ambientOn = !ambientOn;
-    ambient.style.display = ambientOn ? 'flex' : 'none';
-  });
+type(text1, () => setTimeout(() => {
+  type(text2, () => buttons.style.display = "block");
+}, 700));
+
+// No button teleport
+const no = document.getElementById("no");
+no.onmouseenter = () => {
+  no.style.top = Math.random()*50 + 20 + "%";
+  no.style.left = Math.random()*50 + 20 + "%";
+};
+
+// Yes click
+document.getElementById("yes").onclick = () => {
+  for(let i=0;i<28;i++){
+    const p = document.createElement("div");
+    p.className = "petal";
+    p.style.left = Math.random()*100+"vw";
+    p.style.animationDuration = Math.random()*3+2+"s";
+    document.body.appendChild(p);
+  }
+  document.getElementById("card").style.display = "flex";
+};
+
+// Ambient toggle
+const amb = document.getElementById("ambient");
+document.getElementById("toggle").onclick = () =>
+  amb.style.display = amb.style.display === "flex" ? "none" : "flex";
 </script>
 
 </body>
