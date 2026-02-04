@@ -8,13 +8,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
+*{margin:0;padding:0;box-sizing:border-box}
 
-body {
+body{
   min-height:100vh;
-  background: radial-gradient(circle at top, #1b2a4e, #0b1224);
+  background:radial-gradient(circle at top,#1b2a4e,#0b1224);
   color:#eef1f7;
-  font-family:'Inter', sans-serif;
+  font-family:'Inter',sans-serif;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -23,162 +23,118 @@ body {
   padding:20px;
 }
 
-/* Breathing after YES */
-body.breathe {
-  animation: breathe 8s ease-in-out infinite;
-}
-@keyframes breathe {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.01); }
+/* breathing */
+body.breathe{animation:breathe 8s ease-in-out infinite}
+@keyframes breathe{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.01)}
 }
 
-/* Background stars */
-.stars {
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:0;
-}
-.star {
+/* stars */
+.stars{position:fixed;inset:0;pointer-events:none;z-index:0}
+.star{
   position:absolute;
-  width:2px;
-  height:2px;
-  background:white;
-  border-radius:50%;
-  opacity:.35;
-  animation: twinkle 4s ease-in-out infinite;
+  width:2px;height:2px;
+  background:white;border-radius:50%;
+  opacity:.4;
+  animation:twinkle 4s infinite
 }
-@keyframes twinkle {
-  0%,100% { opacity:.2; }
-  50% { opacity:.9; }
+@keyframes twinkle{
+  0%,100%{opacity:.2}
+  50%{opacity:.9}
 }
 
-/* Container */
-.container {
-  position:relative;
-  z-index:2;
-  max-width:420px;
-  width:100%;
+/* container */
+.container{position:relative;z-index:2;max-width:420px;width:100%}
+
+/* moon */
+.moon-wrapper{width:160px;height:160px;margin:0 auto 32px;position:relative}
+.moon{
+  width:100%;height:100%;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%,#fff,#d8dce6);
+  box-shadow:0 0 30px rgba(255,255,255,.45),0 0 90px rgba(180,200,255,.3);
+  transition:2.5s ease
+}
+.moon.warm{
+  background:radial-gradient(circle at 30% 30%,#fff7d6,#f2d38a);
+  box-shadow:0 0 40px rgba(255,214,140,.6),0 0 100px rgba(255,200,120,.35)
 }
 
-/* Moon */
-.moon-wrapper {
-  position:relative;
-  width:160px;
-  height:160px;
-  margin:0 auto 32px;
-}
-.moon {
-  width:100%;
-  height:100%;
-  border-radius:50%;
-  background: radial-gradient(circle at 30% 30%, #ffffff, #d8dce6);
-  box-shadow:
-    0 0 30px rgba(255,255,255,.45),
-    0 0 90px rgba(180,200,255,.3);
-  transition: all 2.5s ease;
-}
-
-/* Warm moon after YES */
-.moon.warm {
-  background: radial-gradient(circle at 30% 30%, #fff7d6, #f2d38a);
-  box-shadow:
-    0 0 40px rgba(255,214,140,.6),
-    0 0 100px rgba(255,200,120,.35);
-}
-
-/* Ripple */
-.ripple {
-  position:absolute;
-  inset:0;
-  border-radius:50%;
+/* ripple */
+.ripple{
+  position:absolute;inset:0;border-radius:50%;
   border:1px solid rgba(255,230,180,.35);
-  animation: ripple 6s ease-out infinite;
+  animation:ripple 6s ease-out infinite
 }
-@keyframes ripple {
-  0% { transform: scale(1); opacity:.6; }
-  100% { transform: scale(2.4); opacity:0; }
+@keyframes ripple{
+  0%{transform:scale(1);opacity:.6}
+  100%{transform:scale(2.4);opacity:0}
 }
 
-h1 {
-  font-family:'Playfair Display', serif;
+h1{
+  font-family:'Playfair Display',serif;
   font-size:1.6rem;
   line-height:1.45;
-  margin-bottom:28px;
-  padding:0 10px;
+  margin-bottom:28px
 }
 
-/* Buttons */
-.buttons {
-  display:flex;
-  justify-content:center;
-  gap:18px;
-}
-
-button {
+/* buttons */
+.buttons{display:flex;justify-content:center;gap:18px}
+button{
   padding:14px 30px;
   border-radius:999px;
-  font-size:1rem;
   border:none;
+  font-size:1rem;
   cursor:pointer;
-  transition:all .4s ease;
+  transition:.4s ease
 }
+#yes{background:#e6ebff;color:#0b1224;box-shadow:0 0 18px rgba(200,210,255,.6)}
+#yes.grow{transform:scale(1.4);box-shadow:0 0 45px rgba(220,230,255,1)}
+#no{background:transparent;color:#b8bfd9;border:1px solid rgba(184,191,217,.4)}
 
-#yes {
-  background:#e6ebff;
-  color:#0b1224;
-  box-shadow:0 0 18px rgba(200,210,255,.6);
+/* step two */
+.step-two{display:none;margin-top:30px}
+.step-two h2{
+  font-family:'Playfair Display',serif;
+  font-size:1.25rem;
+  margin-bottom:18px
 }
-#yes.grow {
-  transform:scale(1.4);
-  box-shadow:0 0 45px rgba(220,230,255,1);
-}
-
-#no {
+.options{display:flex;justify-content:center;gap:16px}
+.options button{
   background:transparent;
-  color:#b8bfd9;
-  border:1px solid rgba(184,191,217,.4);
+  color:#eef1f7;
+  border:1px solid rgba(255,255,255,.35)
 }
 
-.after-yes {
-  display:none;
-  margin-top:30px;
-  font-size:.95rem;
-  opacity:.9;
+/* morph */
+.morph{animation:morph .6s ease}
+@keyframes morph{
+  0%{transform:scale(1);opacity:1}
+  50%{transform:scale(.6);opacity:.4}
+  100%{transform:scale(1);opacity:1}
 }
 
-/* ⭐ TRUE SHOOTING STAR */
-.shooting-star {
+/* after yes */
+.after-yes{display:none;margin-top:30px;font-size:.95rem}
+
+/* shooting star */
+.shooting-star{
   position:fixed;
   top:-60px;
-  width:2px;
-  height:120px;
-  background: linear-gradient(
-    to bottom,
-    rgba(255,255,255,1),
-    rgba(255,255,255,0)
-  );
-  transform: rotate(-25deg);
-  opacity:.9;
-  pointer-events:none;
-  z-index:3;
-  animation: shoot 4s linear forwards;
+  width:2px;height:120px;
+  background:linear-gradient(to bottom,rgba(255,255,255,1),rgba(255,255,255,0));
+  transform:rotate(-25deg);
+  animation:shoot 4s linear forwards;
+  z-index:3
 }
-
-@keyframes shoot {
-  from {
-    transform: translate(0, -60px) rotate(-25deg);
-    opacity:1;
-  }
-  to {
-    transform: translate(var(--dx), 120vh) rotate(-25deg);
-    opacity:0;
-  }
+@keyframes shoot{
+  from{transform:translate(0,-60px) rotate(-25deg);opacity:1}
+  to{transform:translate(var(--dx),120vh) rotate(-25deg);opacity:0}
 }
 
 @media(max-width:360px){
-  h1{font-size:1.45rem;}
-  .moon-wrapper{width:140px;height:140px;}
+  h1{font-size:1.45rem}
+  .moon-wrapper{width:140px;height:140px}
 }
 </style>
 </head>
@@ -203,45 +159,69 @@ button {
     <button id="no">No</button>
   </div>
 
+  <!-- STEP TWO -->
+  <div class="step-two" id="stepTwo">
+    <h2>Where should we visit Mandir? 🛕</h2>
+    <div class="options">
+      <button id="delhi">Delhi</button>
+      <button id="sikkim">Sikkim</button>
+    </div>
+  </div>
+
   <div class="after-yes" id="afterYes">
-    Take screenshot and send to me i have a surprise for you 🧿♥️
+    Take screenshot and send to me<br>
+    I have a surprise for you 🧿♥️
   </div>
 </div>
 
 <script>
-const stars = document.getElementById("stars");
-const yes = document.getElementById("yes");
-const no = document.getElementById("no");
-const afterYes = document.getElementById("afterYes");
-const moonWrapper = document.getElementById("moonWrapper");
-const moon = document.getElementById("moon");
-
-/* Static stars */
+const stars=document.getElementById("stars");
 for(let i=0;i<80;i++){
   const s=document.createElement("div");
   s.className="star";
   s.style.top=Math.random()*100+"vh";
   s.style.left=Math.random()*100+"vw";
-  s.style.animationDuration=3+Math.random()*4+"s";
   stars.appendChild(s);
 }
 
-/* NO click */
-no.addEventListener("click",()=>{
+const yes=document.getElementById("yes");
+const no=document.getElementById("no");
+const moon=document.getElementById("moon");
+const moonWrapper=document.getElementById("moonWrapper");
+const stepTwo=document.getElementById("stepTwo");
+const afterYes=document.getElementById("afterYes");
+const delhi=document.getElementById("delhi");
+const sikkim=document.getElementById("sikkim");
+
+no.onclick=()=>{
   no.style.display="none";
   yes.classList.add("grow");
-});
+};
 
-/* YES click */
-yes.addEventListener("click",()=>{
-  afterYes.style.display="block";
+yes.onclick=()=>{
   document.body.classList.add("breathe");
   moon.classList.add("warm");
   startRipple();
-  startShootingStars();
+  startStars();
+  setTimeout(()=>stepTwo.style.display="block",1200);
+};
+
+let morphed=false;
+document.body.addEventListener("click",()=>{
+  if(stepTwo.style.display==="block" && !morphed){
+    delhi.classList.add("morph");
+    setTimeout(()=>{
+      delhi.innerText="Sikkim";
+      morphed=true;
+    },300);
+  }
 });
 
-/* Ripple */
+sikkim.onclick=()=>{
+  stepTwo.style.display="none";
+  afterYes.style.display="block";
+};
+
 function startRipple(){
   setInterval(()=>{
     const r=document.createElement("div");
@@ -251,16 +231,15 @@ function startRipple(){
   },3200);
 }
 
-/* Shooting stars */
-function startShootingStars(){
+function startStars(){
   setInterval(()=>{
     const s=document.createElement("div");
     s.className="shooting-star";
-    s.style.left = Math.random()*100 + "vw";
-    s.style.setProperty("--dx", (-150 + Math.random()*300) + "px");
+    s.style.left=Math.random()*100+"vw";
+    s.style.setProperty("--dx",(-150+Math.random()*300)+"px");
     document.body.appendChild(s);
     setTimeout(()=>s.remove(),4000);
-  }, 2000);
+  },2000);
 }
 </script>
 
