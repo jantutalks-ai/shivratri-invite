@@ -106,7 +106,7 @@ button{
   border:1px solid rgba(255,255,255,.35)
 }
 
-/* morph animation */
+/* morph */
 .morph{animation:morph .6s ease}
 @keyframes morph{
   0%{transform:scale(1);opacity:1}
@@ -115,7 +115,12 @@ button{
 }
 
 /* final message */
-.after-yes{display:none;margin-top:30px;font-size:.95rem}
+.after-yes{
+  display:none;
+  margin-top:30px;
+  font-size:.95rem;
+  line-height:1.5
+}
 
 /* shooting star */
 .shooting-star{
@@ -130,11 +135,6 @@ button{
 @keyframes shoot{
   from{transform:translate(0,-60px) rotate(-25deg);opacity:1}
   to{transform:translate(var(--dx),120vh) rotate(-25deg);opacity:0}
-}
-
-@media(max-width:360px){
-  h1{font-size:1.45rem}
-  .moon-wrapper{width:140px;height:140px}
 }
 </style>
 </head>
@@ -159,7 +159,6 @@ button{
     <button id="no">No</button>
   </div>
 
-  <!-- STEP TWO -->
   <div class="step-two" id="stepTwo">
     <h2>Where should we visit Mandir? 🛕</h2>
     <div class="options">
@@ -169,8 +168,9 @@ button{
   </div>
 
   <div class="after-yes" id="afterYes">
-    Take screenshot and send to me<br>
-    I have a surprise for you 🧿♥️
+    Take screenshot and send to me,<br>
+    I have a surprise for you 🧿♥️<br>
+    Anamika ✨
   </div>
 </div>
 
@@ -210,26 +210,27 @@ yes.onclick=()=>{
   setTimeout(()=>stepTwo.style.display="block",1200);
 };
 
-/* morph logic */
+/* finish flow */
+function finishFlow(){
+  stepTwo.style.display="none";
+  afterYes.style.display="block";
+}
+
+/* both options lead to final message */
+delhi.onclick = finishFlow;
+sikkim.onclick = finishFlow;
+
+/* morph Delhi into Sikkim on any tap */
 let morphed=false;
 document.body.addEventListener("click",()=>{
   if(stepTwo.style.display==="block" && !morphed){
     delhi.classList.add("morph");
     setTimeout(()=>{
       delhi.innerText="Sikkim";
-      delhi.onclick=finishFlow;
       morphed=true;
     },300);
   }
 });
-
-/* both Sikkim paths end same way */
-sikkim.onclick=finishFlow;
-
-function finishFlow(){
-  stepTwo.style.display="none";
-  afterYes.style.display="block";
-}
 
 /* ripple */
 function startRipple(){
