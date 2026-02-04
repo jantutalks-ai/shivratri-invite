@@ -106,7 +106,7 @@ button{
   border:1px solid rgba(255,255,255,.35)
 }
 
-/* morph */
+/* morph animation */
 .morph{animation:morph .6s ease}
 @keyframes morph{
   0%{transform:scale(1);opacity:1}
@@ -114,7 +114,7 @@ button{
   100%{transform:scale(1);opacity:1}
 }
 
-/* after yes */
+/* final message */
 .after-yes{display:none;margin-top:30px;font-size:.95rem}
 
 /* shooting star */
@@ -175,6 +175,7 @@ button{
 </div>
 
 <script>
+/* stars */
 const stars=document.getElementById("stars");
 for(let i=0;i<80;i++){
   const s=document.createElement("div");
@@ -184,6 +185,7 @@ for(let i=0;i<80;i++){
   stars.appendChild(s);
 }
 
+/* elements */
 const yes=document.getElementById("yes");
 const no=document.getElementById("no");
 const moon=document.getElementById("moon");
@@ -193,11 +195,13 @@ const afterYes=document.getElementById("afterYes");
 const delhi=document.getElementById("delhi");
 const sikkim=document.getElementById("sikkim");
 
+/* no */
 no.onclick=()=>{
   no.style.display="none";
   yes.classList.add("grow");
 };
 
+/* yes */
 yes.onclick=()=>{
   document.body.classList.add("breathe");
   moon.classList.add("warm");
@@ -206,22 +210,28 @@ yes.onclick=()=>{
   setTimeout(()=>stepTwo.style.display="block",1200);
 };
 
+/* morph logic */
 let morphed=false;
 document.body.addEventListener("click",()=>{
   if(stepTwo.style.display==="block" && !morphed){
     delhi.classList.add("morph");
     setTimeout(()=>{
       delhi.innerText="Sikkim";
+      delhi.onclick=finishFlow;
       morphed=true;
     },300);
   }
 });
 
-sikkim.onclick=()=>{
+/* both Sikkim paths end same way */
+sikkim.onclick=finishFlow;
+
+function finishFlow(){
   stepTwo.style.display="none";
   afterYes.style.display="block";
-};
+}
 
+/* ripple */
 function startRipple(){
   setInterval(()=>{
     const r=document.createElement("div");
@@ -231,6 +241,7 @@ function startRipple(){
   },3200);
 }
 
+/* shooting stars */
 function startStars(){
   setInterval(()=>{
     const s=document.createElement("div");
