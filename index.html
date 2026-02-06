@@ -117,6 +117,14 @@ button{
   box-shadow:0 0 18px rgba(255,255,255,.7)
 }
 
+/* morph animation */
+.morph{animation:morph .6s ease}
+@keyframes morph{
+  0%{transform:scale(1);opacity:1}
+  50%{transform:scale(.6);opacity:.4}
+  100%{transform:scale(1);opacity:1}
+}
+
 /* final message */
 .after-yes{
   display:none;
@@ -172,86 +180,4 @@ button{
     <h2>Where should we visit Mandir? 🛕</h2>
     <div class="options">
       <button id="delhi">Delhi</button>
-      <button id="sikkim">Sikkim</button>
-    </div>
-
-    <div class="after-yes" id="afterYes">
-      Take screenshot and send to me,<br>
-      I have a surprise for you 🧿♥️<br>
-      Anamika ✨
-    </div>
-  </div>
-</div>
-
-<script>
-/* stars */
-const stars=document.getElementById("stars");
-for(let i=0;i<80;i++){
-  const s=document.createElement("div");
-  s.className="star";
-  s.style.top=Math.random()*100+"vh";
-  s.style.left=Math.random()*100+"vw";
-  stars.appendChild(s);
-}
-
-/* elements */
-const yes=document.getElementById("yes");
-const no=document.getElementById("no");
-const moon=document.getElementById("moon");
-const moonWrapper=document.getElementById("moonWrapper");
-const stepTwo=document.getElementById("stepTwo");
-const afterYes=document.getElementById("afterYes");
-const delhi=document.getElementById("delhi");
-const sikkim=document.getElementById("sikkim");
-
-/* no */
-no.onclick=()=>{
-  no.style.display="none";
-  yes.classList.add("grow");
-};
-
-/* yes */
-yes.onclick=()=>{
-  document.body.classList.add("breathe");
-  moon.classList.add("warm");
-  startRipple();
-  startStars();
-  setTimeout(()=>stepTwo.style.display="block",1200);
-};
-
-/* option click */
-function selectOption(btn){
-  delhi.classList.remove("selected");
-  sikkim.classList.remove("selected");
-  btn.classList.add("selected");
-  afterYes.style.display="block";
-}
-
-delhi.onclick=()=>selectOption(delhi);
-sikkim.onclick=()=>selectOption(sikkim);
-
-/* ripple */
-function startRipple(){
-  setInterval(()=>{
-    const r=document.createElement("div");
-    r.className="ripple";
-    moonWrapper.appendChild(r);
-    setTimeout(()=>r.remove(),6000);
-  },3200);
-}
-
-/* shooting stars */
-function startStars(){
-  setInterval(()=>{
-    const s=document.createElement("div");
-    s.className="shooting-star";
-    s.style.left=Math.random()*100+"vw";
-    s.style.setProperty("--dx",(-150+Math.random()*300)+"px");
-    document.body.appendChild(s);
-    setTimeout(()=>s.remove(),4000);
-  },2000);
-}
-</script>
-
-</body>
-</html>
+      <button id="sikkim">
