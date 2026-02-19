@@ -5,144 +5,131 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For You 🌻</title>
 
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #ffe4ec, #f3e5ff, #fff6e8);
-  overflow-x: hidden;
-  color: #444;
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#ffe4ec,#f3e5ff,#fff6e8);
+  overflow-x:hidden;
 }
 
-/* Dreamy background sparkles */
-body::before {
-  content: "";
-  position: fixed;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px);
-  background-size: 50px 50px;
-  animation: sparkle 40s linear infinite;
-  z-index: -1;
+/* Sparkle background */
+body::before{
+  content:"";
+  position:fixed;
+  width:200%;
+  height:200%;
+  background:radial-gradient(circle,rgba(255,255,255,0.6) 1px,transparent 1px);
+  background-size:50px 50px;
+  animation:sparkle 40s linear infinite;
+  z-index:-1;
+}
+@keyframes sparkle{
+  from{transform:translate(0,0);}
+  to{transform:translate(-200px,-200px);}
 }
 
-@keyframes sparkle {
-  from { transform: translate(0,0); }
-  to { transform: translate(-200px,-200px); }
+/* Floating elements */
+.float{
+  position:fixed;
+  animation:float 12s linear infinite;
+  opacity:0.8;
 }
-
-/* Floating hearts */
-.heart {
-  position: fixed;
-  font-size: 20px;
-  animation: float 10s linear infinite;
-  opacity: 0.6;
-}
-
-@keyframes float {
-  from { transform: translateY(100vh); }
-  to { transform: translateY(-10vh); }
+@keyframes float{
+  from{transform:translateY(100vh);}
+  to{transform:translateY(-10vh);}
 }
 
 /* Hero */
-.hero {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+.hero{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+.hero h1{
+  font-family:'Great Vibes',cursive;
+  color:#c96fa7;
+  font-size:2.8rem;
+}
+.btn{
+  margin-top:25px;
+  padding:12px 28px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(45deg,#ffb7d5,#d7b3ff);
+  color:white;
+  cursor:pointer;
+  transition:0.3s;
+}
+.btn:hover{transform:scale(1.05);}
+
+/* Letter */
+.letter-section{
+  display:none;
+  padding:30px 20px;
+}
+.letter{
+  background:rgba(255,255,255,0.75);
+  backdrop-filter:blur(12px);
+  border-radius:20px;
+  padding:25px;
+  max-width:600px;
+  margin:auto;
+  font-family:'Great Vibes',cursive;
+  font-size:1.3rem;
+  color:#6b4a5e;
+  line-height:1.7;
+  min-height:300px;
 }
 
-.hero h1 {
-  font-family: 'Great Vibes', cursive;
-  font-size: 2.8rem;
-  color: #c96fa7;
-  margin-bottom: 15px;
+/* Cursor */
+.cursor{
+  display:inline-block;
+  width:3px;
+  background:#c96fa7;
+  margin-left:4px;
+  animation:blink 1s infinite;
 }
-
-.hero p {
-  font-size: 1rem;
-  color: #777;
-}
-
-.btn {
-  margin-top: 25px;
-  padding: 12px 28px;
-  border-radius: 30px;
-  border: none;
-  background: linear-gradient(45deg, #ffb7d5, #d7b3ff);
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.btn:hover {
-  transform: scale(1.05);
-}
-
-/* Letter Section */
-.letter-section {
-  display: none;
-  padding: 40px 20px;
-  animation: fade 1.5s ease;
-}
-
-@keyframes fade {
-  from {opacity:0; transform: translateY(30px);}
-  to {opacity:1; transform: translateY(0);}
-}
-
-.letter {
-  background: rgba(255,255,255,0.7);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 25px;
-  max-width: 600px;
-  margin: auto;
-  font-family: 'Great Vibes', cursive;
-  font-size: 1.3rem;
-  line-height: 1.7;
-  color: #6b4a5e;
+@keyframes blink{
+  50%{opacity:0;}
 }
 
 /* Poem */
-.poem {
-  margin-top: 35px;
-  text-align: center;
-  font-family: 'Great Vibes', cursive;
-  color: #9b6ab8;
-  font-size: 1.4rem;
+.poem{
+  margin-top:35px;
+  text-align:center;
+  font-family:'Great Vibes',cursive;
+  font-size:1.4rem;
+  color:#9b6ab8;
 }
 
-/* Final message */
-.final {
-  margin-top: 30px;
-  text-align: center;
-  color: #c96fa7;
+/* Final */
+.final{
+  margin-top:25px;
+  text-align:center;
+  color:#c96fa7;
 }
 
-/* Music button */
-.music {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  background: #fff;
-  border-radius: 50%;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+/* Music */
+.music{
+  position:fixed;
+  top:15px;
+  right:15px;
+  border:none;
+  border-radius:50%;
+  padding:10px;
+  cursor:pointer;
 }
 
 /* Mobile */
 @media(max-width:600px){
-  .hero h1 { font-size: 2.2rem; }
-  .letter { font-size: 1.1rem; }
+  .hero h1{font-size:2.2rem;}
+  .letter{font-size:1.1rem;}
 }
 </style>
 </head>
@@ -154,35 +141,28 @@ body::before {
   <source src="https://cdn.pixabay.com/audio/2023/03/20/audio_2a77c10baf.mp3">
 </audio>
 
-<!-- Floating hearts -->
+<!-- Floating hearts + sunflowers -->
 <script>
-for(let i=0;i<15;i++){
-  let heart=document.createElement("div");
-  heart.innerHTML="💖";
-  heart.className="heart";
-  heart.style.left=Math.random()*100+"vw";
-  heart.style.animationDuration=(6+Math.random()*6)+"s";
-  document.body.appendChild(heart);
+const icons=["💖","🌻"];
+for(let i=0;i<25;i++){
+  let el=document.createElement("div");
+  el.innerHTML=icons[Math.floor(Math.random()*icons.length)];
+  el.className="float";
+  el.style.left=Math.random()*100+"vw";
+  el.style.fontSize=(18+Math.random()*15)+"px";
+  el.style.animationDuration=(7+Math.random()*7)+"s";
+  document.body.appendChild(el);
 }
 </script>
 
-<!-- Hero -->
 <section class="hero" id="home">
   <h1>A little something for you 🌸</h1>
-  <p>This is simple, but from the heart</p>
   <button class="btn" onclick="openLetter()">This is for You 🌻</button>
 </section>
 
-<!-- Letter -->
 <section class="letter-section" id="letter">
   <div class="letter">
-“Hey 😊✨<br><br>
-
-I just wanted to tell you something simple but real. You’re genuinely such a beautiful person 🌻 not just in the way you look, but in the way you talk, the way you care, and the way you carry yourself. There’s something so warm and comforting about your presence 🤍.<br><br>
-
-You have this natural sweetness that makes people feel at ease 🫶. Your smile feels honest, your vibe feels pure, and the way you handle things with quiet strength is honestly admirable 💫. It’s rare to meet someone who feels so soft yet so strong at the same time 🌸.<br><br>
-
-I don’t want to make this big or dramatic. I just hope you know that you’re appreciated for exactly who you are 💛. The world is genuinely better with your energy in it 🌍✨. 🌻♥️”
+    <span id="typed"></span><span class="cursor"></span>
   </div>
 
   <div class="poem">
@@ -198,16 +178,33 @@ I don’t want to make this big or dramatic. I just hope you know that you’re 
 </section>
 
 <script>
+const text=`Hey 😊✨
+
+I just wanted to tell you something simple but real. You’re genuinely such a beautiful person 🌻 not just in the way you look, but in the way you talk, the way you care, and the way you carry yourself. There’s something so warm and comforting about your presence 🤍.
+
+You have this natural sweetness that makes people feel at ease 🫶. Your smile feels honest, your vibe feels pure, and the way you handle things with quiet strength is honestly admirable 💫. It’s rare to meet someone who feels so soft yet so strong at the same time 🌸.
+
+I don’t want to make this big or dramatic. I just hope you know that you’re appreciated for exactly who you are 💛. The world is genuinely better with your energy in it 🌍✨. 🌻♥️`;
+
+let i=0;
+
+function type(){
+  if(i<text.length){
+    document.getElementById("typed").innerHTML+=text.charAt(i);
+    i++;
+    setTimeout(type,35);
+  }
+}
+
 function openLetter(){
   document.getElementById("home").style.display="none";
   document.getElementById("letter").style.display="block";
-  window.scrollTo(0,0);
+  type();
 }
 
 function toggleMusic(){
   let music=document.getElementById("bgMusic");
-  if(music.paused) music.play();
-  else music.pause();
+  music.paused ? music.play() : music.pause();
 }
 </script>
 
