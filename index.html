@@ -3,178 +3,181 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For You 🌻</title>
+<title>This Is For You</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
 body{
-  margin:0;
-  font-family:'Poppins',sans-serif;
-  background:linear-gradient(135deg,#ffe4ec,#f3e5ff,#fff6e8);
-  overflow-x:hidden;
+font-family:'Poppins',sans-serif;
+background: linear-gradient(140deg,#ffe6f0,#f5eaff,#fff6ed);
+overflow-x:hidden;
+color:#555;
 }
 
-/* Sparkle background */
-body::before{
-  content:"";
-  position:fixed;
-  width:200%;
-  height:200%;
-  background:radial-gradient(circle,rgba(255,255,255,0.6) 1px,transparent 1px);
-  background-size:50px 50px;
-  animation:sparkle 40s linear infinite;
-  z-index:-1;
-}
-@keyframes sparkle{
-  from{transform:translate(0,0);}
-  to{transform:translate(-200px,-200px);}
-}
-
-/* Floating elements */
+/* Floating */
 .float{
-  position:fixed;
-  animation:float 12s linear infinite;
-  opacity:0.8;
+position:fixed;
+bottom:-30px;
+font-size:22px;
+animation:float 8s linear infinite;
+opacity:.7;
+pointer-events:none;
 }
+
 @keyframes float{
-  from{transform:translateY(100vh);}
-  to{transform:translateY(-10vh);}
+0%{transform:translateY(0) rotate(0deg);}
+100%{transform:translateY(-120vh) rotate(360deg);}
 }
 
 /* Hero */
 .hero{
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
+height:100vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:25px;
 }
+
 .hero h1{
-  font-family:'Great Vibes',cursive;
-  color:#c96fa7;
-  font-size:2.8rem;
+font-size:clamp(1.8rem,6vw,2.6rem);
+color:#b98adf;
+margin-bottom:15px;
 }
-.btn{
-  margin-top:25px;
-  padding:12px 28px;
-  border:none;
-  border-radius:30px;
-  background:linear-gradient(45deg,#ffb7d5,#d7b3ff);
-  color:white;
-  cursor:pointer;
-  transition:0.3s;
-}
-.btn:hover{transform:scale(1.05);}
 
-/* Letter */
-.letter-section{
-  display:none;
-  padding:30px 20px;
+.hero p{
+font-size:clamp(14px,4vw,16px);
+max-width:500px;
+margin-bottom:28px;
 }
+
+button{
+padding:14px 28px;
+border:none;
+background:#ffb6c1;
+color:white;
+border-radius:30px;
+cursor:pointer;
+font-size:15px;
+box-shadow:0 6px 20px rgba(0,0,0,0.1);
+}
+
+/* Content */
+.section{
+display:none;
+padding:60px 18px;
+max-width:650px;
+margin:auto;
+}
+
 .letter{
-  background:rgba(255,255,255,0.75);
-  backdrop-filter:blur(12px);
-  border-radius:20px;
-  padding:25px;
-  max-width:600px;
-  margin:auto;
-  font-family:'Great Vibes',cursive;
-  font-size:1.3rem;
-  color:#6b4a5e;
-  line-height:1.7;
-  min-height:300px;
+font-family:'Dancing Script',cursive;
+font-size:clamp(18px,5vw,21px);
+line-height:1.9;
+background:#ffffffd9;
+padding:22px;
+border-radius:20px;
+box-shadow:0 12px 30px rgba(0,0,0,0.08);
+min-height:250px;
 }
 
-/* Cursor */
+/* cursor */
 .cursor{
-  display:inline-block;
-  width:3px;
-  background:#c96fa7;
-  margin-left:4px;
-  animation:blink 1s infinite;
+border-right:2px solid #d48fb4;
+animation:blink 1s infinite;
 }
 @keyframes blink{
-  50%{opacity:0;}
+50%{border-color:transparent;}
 }
 
-/* Poem */
 .poem{
-  margin-top:35px;
-  text-align:center;
-  font-family:'Great Vibes',cursive;
-  font-size:1.4rem;
-  color:#9b6ab8;
+text-align:center;
+font-family:'Dancing Script',cursive;
+font-size:clamp(20px,5vw,24px);
+color:#b88bd9;
+margin-top:28px;
+opacity:0;
+transition:1s;
 }
 
-/* Final */
 .final{
-  margin-top:25px;
-  text-align:center;
-  color:#c96fa7;
+text-align:center;
+font-family:'Dancing Script',cursive;
+font-size:clamp(22px,6vw,28px);
+color:#d48fb4;
+margin-top:30px;
+opacity:0;
+transition:1s;
 }
 
-/* Music */
+/* music */
 .music{
-  position:fixed;
-  top:15px;
-  right:15px;
-  border:none;
-  border-radius:50%;
-  padding:10px;
-  cursor:pointer;
-}
-
-/* Mobile */
-@media(max-width:600px){
-  .hero h1{font-size:2.2rem;}
-  .letter{font-size:1.1rem;}
+position:fixed;
+top:15px;
+right:15px;
 }
 </style>
 </head>
-
 <body>
 
-<button class="music" onclick="toggleMusic()">🎶</button>
+<!-- Floating hearts & sunflowers -->
+<script>
+const emojis=["💗","🌻"];
+setInterval(()=>{
+let el=document.createElement("div");
+el.className="float";
+el.innerHTML=emojis[Math.floor(Math.random()*2)];
+el.style.left=Math.random()*100+"vw";
+el.style.animationDuration=6+Math.random()*4+"s";
+document.body.appendChild(el);
+setTimeout(()=>el.remove(),9000);
+},800);
+</script>
+
+<!-- Music -->
+<div class="music">
+<button onclick="toggleMusic()">🎵</button>
+</div>
+
 <audio id="bgMusic" loop>
-  <source src="https://cdn.pixabay.com/audio/2023/03/20/audio_2a77c10baf.mp3">
+<source src="https://cdn.pixabay.com/audio/2023/03/21/audio_1b3dfd13e0.mp3">
 </audio>
 
-<!-- Floating hearts + sunflowers -->
 <script>
-const icons=["💖","🌻"];
-for(let i=0;i<25;i++){
-  let el=document.createElement("div");
-  el.innerHTML=icons[Math.floor(Math.random()*icons.length)];
-  el.className="float";
-  el.style.left=Math.random()*100+"vw";
-  el.style.fontSize=(18+Math.random()*15)+"px";
-  el.style.animationDuration=(7+Math.random()*7)+"s";
-  document.body.appendChild(el);
+function toggleMusic(){
+let m=document.getElementById("bgMusic");
+m.paused ? m.play() : m.pause();
 }
 </script>
 
-<section class="hero" id="home">
-  <h1>A little something for you 🌸</h1>
-  <button class="btn" onclick="openLetter()">This is for You 🌻</button>
+<!-- Hero -->
+<section class="hero">
+<h1>Welcome 💫</h1>
+<p>This little space is just for you. A place where I kept something soft, honest and from my heart.</p>
+<button onclick="openLetter()">This is for You🌻</button>
 </section>
 
-<section class="letter-section" id="letter">
-  <div class="letter">
-    <span id="typed"></span><span class="cursor"></span>
-  </div>
+<!-- Content -->
+<section id="content" class="section">
 
-  <div class="poem">
-    You walked in softly, like sunlight at dawn,<br>
-    Calm, warm, and beautifully drawn.<br>
-    No noise, no rush, just a gentle glow,<br>
-    The kind of presence hearts just know 🌻
-  </div>
+<div id="letter" class="letter"></div>
 
-  <div class="final">
-    Always stay this amazing. You’re truly special 🤍✨
-  </div>
+<div id="poem" class="poem">
+You walked in softly,<br>
+like sunshine after rain,<br>
+and somehow without trying,<br>
+you made my heart feel safe again 🌻
+</div>
+
+<div id="final" class="final">
+Thank you for being in my life.  
+You mean more than you know 💗
+</div>
+
 </section>
 
 <script>
@@ -189,22 +192,23 @@ I don’t want to make this big or dramatic. I just hope you know that you’re 
 let i=0;
 
 function type(){
-  if(i<text.length){
-    document.getElementById("typed").innerHTML+=text.charAt(i);
-    i++;
-    setTimeout(type,35);
-  }
+if(i<text.length){
+document.getElementById("letter").innerHTML=
+text.substring(0,i)+'<span class="cursor"></span>';
+i++;
+setTimeout(type,28);
+}else{
+document.getElementById("poem").style.opacity=1;
+setTimeout(()=>{
+document.getElementById("final").style.opacity=1;
+},1000);
+}
 }
 
 function openLetter(){
-  document.getElementById("home").style.display="none";
-  document.getElementById("letter").style.display="block";
-  type();
-}
-
-function toggleMusic(){
-  let music=document.getElementById("bgMusic");
-  music.paused ? music.play() : music.pause();
+document.querySelector(".hero").style.display="none";
+document.getElementById("content").style.display="block";
+type();
 }
 </script>
 
