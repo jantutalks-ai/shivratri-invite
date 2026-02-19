@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Heart</title>
+<title>This is for You</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
@@ -21,15 +21,16 @@ color:#555;
 overflow-x:hidden;
 }
 
-/* floating hearts */
-.heart{
+/* floating */
+.float{
 position:fixed;
 bottom:-20px;
-font-size:18px;
-animation:float 7s linear infinite;
-opacity:.6;
+font-size:20px;
+animation:float 8s linear infinite;
+opacity:.7;
 pointer-events:none;
 }
+
 @keyframes float{
 0%{transform:translateY(0) scale(1);}
 100%{transform:translateY(-120vh) scale(1.8);}
@@ -131,22 +132,26 @@ padding:10px 14px;
 font-size:18px;
 border-radius:50%;
 }
-
 </style>
 </head>
 <body>
 
-<!-- floating hearts -->
+<!-- floating hearts + sunflowers -->
 <script>
 setInterval(()=>{
-let h=document.createElement("div");
-h.className="heart";
-h.innerHTML="💗";
-h.style.left=Math.random()*100+"vw";
-h.style.animationDuration=5+Math.random()*3+"s";
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),7000);
-},900);
+let el=document.createElement("div");
+el.className="float";
+
+/* random emoji */
+let items=["💗","🌻"];
+el.innerHTML=items[Math.floor(Math.random()*items.length)];
+
+el.style.left=Math.random()*100+"vw";
+el.style.animationDuration=6+Math.random()*4+"s";
+
+document.body.appendChild(el);
+setTimeout(()=>el.remove(),9000);
+},800);
 </script>
 
 <!-- MUSIC -->
@@ -187,7 +192,7 @@ I’m not trying to make things serious or awkward. I just wanted to tell you th
 
 But just so you know, you’re officially my favorite notification now 😌<br><br>
 
-i don’t know who i am right now”
+i don’t know who i am right now🥺. ”
 </div>
 
 <div class="poem">
