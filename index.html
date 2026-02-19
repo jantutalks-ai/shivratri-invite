@@ -3,216 +3,211 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>This Is For You</title>
+<title>For You 🌻</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-
-body{
-font-family:'Poppins',sans-serif;
-background: linear-gradient(140deg,#ffe6f0,#f5eaff,#fff6ed);
-overflow-x:hidden;
-color:#555;
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ffe4ec, #f3e5ff, #fff6e8);
+  overflow-x: hidden;
+  color: #444;
 }
 
-/* Floating */
-.float{
-position:fixed;
-bottom:-30px;
-font-size:22px;
-animation:float 8s linear infinite;
-opacity:.7;
-pointer-events:none;
+/* Dreamy background sparkles */
+body::before {
+  content: "";
+  position: fixed;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: sparkle 40s linear infinite;
+  z-index: -1;
 }
 
-@keyframes float{
-0%{transform:translateY(0) rotate(0deg);}
-100%{transform:translateY(-120vh) rotate(360deg);}
+@keyframes sparkle {
+  from { transform: translate(0,0); }
+  to { transform: translate(-200px,-200px); }
+}
+
+/* Floating hearts */
+.heart {
+  position: fixed;
+  font-size: 20px;
+  animation: float 10s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes float {
+  from { transform: translateY(100vh); }
+  to { transform: translateY(-10vh); }
 }
 
 /* Hero */
-.hero{
-height:100vh;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-text-align:center;
-padding:25px;
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
-.hero h1{
-font-size:clamp(1.8rem,6vw,2.6rem);
-color:#b98adf;
-margin-bottom:15px;
+.hero h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.8rem;
+  color: #c96fa7;
+  margin-bottom: 15px;
 }
 
-.hero p{
-font-size:clamp(14px,4vw,16px);
-max-width:500px;
-margin-bottom:28px;
+.hero p {
+  font-size: 1rem;
+  color: #777;
 }
 
-button{
-padding:14px 28px;
-border:none;
-background:#ffb6c1;
-color:white;
-border-radius:30px;
-cursor:pointer;
-font-size:15px;
-box-shadow:0 6px 20px rgba(0,0,0,0.1);
+.btn {
+  margin-top: 25px;
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: none;
+  background: linear-gradient(45deg, #ffb7d5, #d7b3ff);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-/* Content */
-.section{
-display:none;
-padding:60px 18px;
-max-width:650px;
-margin:auto;
+.btn:hover {
+  transform: scale(1.05);
 }
 
-.letter{
-font-family:'Dancing Script',cursive;
-font-size:clamp(18px,5vw,21px);
-line-height:1.9;
-background:#ffffffd9;
-padding:22px;
-border-radius:20px;
-box-shadow:0 12px 30px rgba(0,0,0,0.08);
-min-height:250px;
+/* Letter Section */
+.letter-section {
+  display: none;
+  padding: 40px 20px;
+  animation: fade 1.5s ease;
 }
 
-/* cursor */
-.cursor{
-border-right:2px solid #d48fb4;
-animation:blink 1s infinite;
-}
-@keyframes blink{
-50%{border-color:transparent;}
+@keyframes fade {
+  from {opacity:0; transform: translateY(30px);}
+  to {opacity:1; transform: translateY(0);}
 }
 
-.poem{
-text-align:center;
-font-family:'Dancing Script',cursive;
-font-size:clamp(20px,5vw,24px);
-color:#b88bd9;
-margin-top:28px;
-opacity:0;
-transition:1s;
+.letter {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  max-width: 600px;
+  margin: auto;
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.3rem;
+  line-height: 1.7;
+  color: #6b4a5e;
 }
 
-.final{
-text-align:center;
-font-family:'Dancing Script',cursive;
-font-size:clamp(22px,6vw,28px);
-color:#d48fb4;
-margin-top:30px;
-opacity:0;
-transition:1s;
+/* Poem */
+.poem {
+  margin-top: 35px;
+  text-align: center;
+  font-family: 'Great Vibes', cursive;
+  color: #9b6ab8;
+  font-size: 1.4rem;
 }
 
-/* music */
-.music{
-position:fixed;
-top:15px;
-right:15px;
+/* Final message */
+.final {
+  margin-top: 30px;
+  text-align: center;
+  color: #c96fa7;
+}
+
+/* Music button */
+.music {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  background: #fff;
+  border-radius: 50%;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+/* Mobile */
+@media(max-width:600px){
+  .hero h1 { font-size: 2.2rem; }
+  .letter { font-size: 1.1rem; }
 }
 </style>
 </head>
+
 <body>
 
-<!-- Floating hearts & sunflowers -->
-<script>
-const emojis=["💗","🌻"];
-setInterval(()=>{
-let el=document.createElement("div");
-el.className="float";
-el.innerHTML=emojis[Math.floor(Math.random()*2)];
-el.style.left=Math.random()*100+"vw";
-el.style.animationDuration=6+Math.random()*4+"s";
-document.body.appendChild(el);
-setTimeout(()=>el.remove(),9000);
-},800);
-</script>
-
-<!-- Music -->
-<div class="music">
-<button onclick="toggleMusic()">🎵</button>
-</div>
-
+<button class="music" onclick="toggleMusic()">🎶</button>
 <audio id="bgMusic" loop>
-<source src="https://cdn.pixabay.com/audio/2023/03/21/audio_1b3dfd13e0.mp3">
+  <source src="https://cdn.pixabay.com/audio/2023/03/20/audio_2a77c10baf.mp3">
 </audio>
 
+<!-- Floating hearts -->
 <script>
-function toggleMusic(){
-let m=document.getElementById("bgMusic");
-m.paused ? m.play() : m.pause();
+for(let i=0;i<15;i++){
+  let heart=document.createElement("div");
+  heart.innerHTML="💖";
+  heart.className="heart";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.animationDuration=(6+Math.random()*6)+"s";
+  document.body.appendChild(heart);
 }
 </script>
 
 <!-- Hero -->
-<section class="hero">
-<h1>Welcome 💫</h1>
-<p>This little space is just for you. A place where I kept something soft, honest and from my heart.</p>
-<button onclick="openLetter()">This is for You🌻</button>
+<section class="hero" id="home">
+  <h1>A little something for you 🌸</h1>
+  <p>This is simple, but from the heart</p>
+  <button class="btn" onclick="openLetter()">This is for You 🌻</button>
 </section>
 
-<!-- Content -->
-<section id="content" class="section">
+<!-- Letter -->
+<section class="letter-section" id="letter">
+  <div class="letter">
+“Hey 😊✨<br><br>
 
-<div id="letter" class="letter"></div>
+I just wanted to tell you something simple but real. You’re genuinely such a beautiful person 🌻 not just in the way you look, but in the way you talk, the way you care, and the way you carry yourself. There’s something so warm and comforting about your presence 🤍.<br><br>
 
-<div id="poem" class="poem">
-You walked in softly,<br>
-like sunshine after rain,<br>
-and somehow without trying,<br>
-you made my heart feel safe again 🌻
-</div>
+You have this natural sweetness that makes people feel at ease 🫶. Your smile feels honest, your vibe feels pure, and the way you handle things with quiet strength is honestly admirable 💫. It’s rare to meet someone who feels so soft yet so strong at the same time 🌸.<br><br>
 
-<div id="final" class="final">
-Thank you for being in my life.  
-You mean more than you know 💗
-</div>
+I don’t want to make this big or dramatic. I just hope you know that you’re appreciated for exactly who you are 💛. The world is genuinely better with your energy in it 🌍✨. 🌻♥️”
+  </div>
 
+  <div class="poem">
+    You walked in softly, like sunlight at dawn,<br>
+    Calm, warm, and beautifully drawn.<br>
+    No noise, no rush, just a gentle glow,<br>
+    The kind of presence hearts just know 🌻
+  </div>
+
+  <div class="final">
+    Always stay this amazing. You’re truly special 🤍✨
+  </div>
 </section>
 
 <script>
-const text=`“Hey you 😊
-
-So I have a tiny confession. Somehow, without even realizing it, you’ve become my favorite person to talk to. I don’t know when it started, but now I find myself waiting for your messages and smiling at my phone like an idiot when your name pops up. It’s honestly a little embarrassing but also really nice.
-
-You have this way of making normal days feel more fun and lighter. Even small conversations with you stay in my mind longer than they should and yes, I blame you for all my random smiles and daydreaming lately.
-
-I’m not trying to make things serious or awkward. I just wanted to tell you that I really like you and I enjoy every moment we will share. If you ever feel the same, that would make me very happy. I’m really glad you’re in my life.
-
-But just so you know, you’re officially my favorite notification now 😌
-
-i don’t know who i am right now🥺.”`;
-
-let i=0;
-
-function type(){
-if(i<text.length){
-document.getElementById("letter").innerHTML=
-text.substring(0,i)+'<span class="cursor"></span>';
-i++;
-setTimeout(type,28);
-}else{
-document.getElementById("poem").style.opacity=1;
-setTimeout(()=>{
-document.getElementById("final").style.opacity=1;
-},1000);
-}
-}
-
 function openLetter(){
-document.querySelector(".hero").style.display="none";
-document.getElementById("content").style.display="block";
-type();
+  document.getElementById("home").style.display="none";
+  document.getElementById("letter").style.display="block";
+  window.scrollTo(0,0);
+}
+
+function toggleMusic(){
+  let music=document.getElementById("bgMusic");
+  if(music.paused) music.play();
+  else music.pause();
 }
 </script>
 
