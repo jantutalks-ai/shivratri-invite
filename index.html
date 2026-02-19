@@ -3,40 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>This is for You</title>
+<title>This Is For You</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
 font-family:'Poppins',sans-serif;
 background: linear-gradient(140deg,#ffe6f0,#f5eaff,#fff6ed);
-color:#555;
 overflow-x:hidden;
+color:#555;
 }
 
-/* floating */
+/* Floating */
 .float{
 position:fixed;
-bottom:-20px;
-font-size:20px;
+bottom:-30px;
+font-size:22px;
 animation:float 8s linear infinite;
 opacity:.7;
 pointer-events:none;
 }
 
 @keyframes float{
-0%{transform:translateY(0) scale(1);}
-100%{transform:translateY(-120vh) scale(1.8);}
+0%{transform:translateY(0) rotate(0deg);}
+100%{transform:translateY(-120vh) rotate(360deg);}
 }
 
-/* HERO */
+/* Hero */
 .hero{
 height:100vh;
 display:flex;
@@ -57,41 +53,27 @@ margin-bottom:15px;
 font-size:clamp(14px,4vw,16px);
 max-width:500px;
 margin-bottom:28px;
-line-height:1.6;
 }
 
-/* BUTTON */
 button{
 padding:14px 28px;
 border:none;
 background:#ffb6c1;
 color:white;
 border-radius:30px;
-font-size:15px;
 cursor:pointer;
-transition:.3s;
+font-size:15px;
 box-shadow:0 6px 20px rgba(0,0,0,0.1);
 }
 
-button:active{
-transform:scale(.95);
-}
-
-/* SECTION */
+/* Content */
 .section{
-padding:60px 18px 90px;
+display:none;
+padding:60px 18px;
 max-width:650px;
 margin:auto;
-display:none;
-animation:fade 1s ease;
 }
 
-@keyframes fade{
-from{opacity:0;transform:translateY(30px);}
-to{opacity:1;transform:translateY(0);}
-}
-
-/* LETTER */
 .letter{
 font-family:'Dancing Script',cursive;
 font-size:clamp(18px,5vw,21px);
@@ -100,61 +82,63 @@ background:#ffffffd9;
 padding:22px;
 border-radius:20px;
 box-shadow:0 12px 30px rgba(0,0,0,0.08);
+min-height:250px;
 }
 
-/* POEM */
+/* cursor */
+.cursor{
+border-right:2px solid #d48fb4;
+animation:blink 1s infinite;
+}
+@keyframes blink{
+50%{border-color:transparent;}
+}
+
 .poem{
 text-align:center;
 font-family:'Dancing Script',cursive;
 font-size:clamp(20px,5vw,24px);
 color:#b88bd9;
 margin-top:28px;
+opacity:0;
+transition:1s;
 }
 
-/* FINAL */
 .final{
 text-align:center;
 font-family:'Dancing Script',cursive;
 font-size:clamp(22px,6vw,28px);
 color:#d48fb4;
 margin-top:30px;
+opacity:0;
+transition:1s;
 }
 
-/* MUSIC */
+/* music */
 .music{
 position:fixed;
 top:15px;
 right:15px;
 }
-
-.music button{
-padding:10px 14px;
-font-size:18px;
-border-radius:50%;
-}
 </style>
 </head>
 <body>
 
-<!-- floating hearts + sunflowers -->
+<!-- Floating hearts & sunflowers -->
 <script>
+const emojis=["💗","🌻"];
 setInterval(()=>{
 let el=document.createElement("div");
 el.className="float";
-
-/* random emoji */
-let items=["💗","🌻"];
-el.innerHTML=items[Math.floor(Math.random()*items.length)];
-
+el.innerHTML=emojis[Math.floor(Math.random()*2)];
 el.style.left=Math.random()*100+"vw";
 el.style.animationDuration=6+Math.random()*4+"s";
-
 document.body.appendChild(el);
 setTimeout(()=>el.remove(),9000);
 },800);
 </script>
 
-<!-- MUSIC -->
+<!-- Music -->
 <div class="music">
 <button onclick="toggleMusic()">🎵</button>
 </div>
@@ -166,43 +150,30 @@ setTimeout(()=>el.remove(),9000);
 <script>
 function toggleMusic(){
 let m=document.getElementById("bgMusic");
-if(m.paused){m.play();}
-else{m.pause();}
+m.paused ? m.play() : m.pause();
 }
 </script>
 
-<!-- HERO -->
+<!-- Hero -->
 <section class="hero">
 <h1>Welcome 💫</h1>
 <p>This little space is just for you. A place where I kept something soft, honest and from my heart.</p>
 <button onclick="openLetter()">This is for You🌻</button>
 </section>
 
-<!-- CONTENT -->
+<!-- Content -->
 <section id="content" class="section">
 
-<div class="letter">
-“Hey you 😊<br><br>
+<div id="letter" class="letter"></div>
 
-So I have a tiny confession. Somehow, without even realizing it, you’ve become my favorite person to talk to. I don’t know when it started, but now I find myself waiting for your messages and smiling at my phone like an idiot when your name pops up. It’s honestly a little embarrassing but also really nice.<br><br>
-
-You have this way of making normal days feel more fun and lighter. Even small conversations with you stay in my mind longer than they should and yes, I blame you for all my random smiles and daydreaming lately.<br><br>
-
-I’m not trying to make things serious or awkward. I just wanted to tell you that I really like you and I enjoy every moment we will share. If you ever feel the same, that would make me very happy. I’m really glad you’re in my life.<br><br>
-
-But just so you know, you’re officially my favorite notification now 😌<br><br>
-
-i don’t know who i am right now🥺. ”
-</div>
-
-<div class="poem">
+<div id="poem" class="poem">
 You walked in softly,<br>
-like a calm in my day,<br>
-and now every little moment<br>
-feels warmer in your way 💫
+like sunshine after rain,<br>
+and somehow without trying,<br>
+you made my heart feel safe again 🌻
 </div>
 
-<div class="final">
+<div id="final" class="final">
 Thank you for being in my life.  
 You mean more than you know 💗
 </div>
@@ -210,10 +181,38 @@ You mean more than you know 💗
 </section>
 
 <script>
+const text=`“Hey you 😊
+
+So I have a tiny confession. Somehow, without even realizing it, you’ve become my favorite person to talk to. I don’t know when it started, but now I find myself waiting for your messages and smiling at my phone like an idiot when your name pops up. It’s honestly a little embarrassing but also really nice.
+
+You have this way of making normal days feel more fun and lighter. Even small conversations with you stay in my mind longer than they should and yes, I blame you for all my random smiles and daydreaming lately.
+
+I’m not trying to make things serious or awkward. I just wanted to tell you that I really like you and I enjoy every moment we will share. If you ever feel the same, that would make me very happy. I’m really glad you’re in my life.
+
+But just so you know, you’re officially my favorite notification now 😌
+
+i don’t know who i am right now🥺.”`;
+
+let i=0;
+
+function type(){
+if(i<text.length){
+document.getElementById("letter").innerHTML=
+text.substring(0,i)+'<span class="cursor"></span>';
+i++;
+setTimeout(type,28);
+}else{
+document.getElementById("poem").style.opacity=1;
+setTimeout(()=>{
+document.getElementById("final").style.opacity=1;
+},1000);
+}
+}
+
 function openLetter(){
 document.querySelector(".hero").style.display="none";
 document.getElementById("content").style.display="block";
-window.scrollTo(0,0);
+type();
 }
 </script>
 
